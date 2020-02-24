@@ -43,5 +43,4 @@ class TabsFragment : Fragment() {
             }
         }.attach()
     }
-
 }
