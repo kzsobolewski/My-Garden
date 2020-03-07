@@ -1,4 +1,4 @@
-package com.kzsobolewski.mygarden
+package com.kzsobolewski.mygarden.main.fragments
 
 
 import android.os.Bundle
@@ -6,15 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.kzsobolewski.mygarden.main.adapters.TabsPagerAdapter
+import com.kzsobolewski.mygarden.R
+import kotlinx.android.synthetic.main.fragment_tabs.*
 
 
 class TabsFragment : Fragment() {
-
-    private lateinit var adapter: TabsPagerAdapter
-    private lateinit var viewPager: ViewPager2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,19 +22,16 @@ class TabsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initializeViewPagerAdapter(view)
-        attachTabLayoutMediator(view)
+        initializeViewPagerAdapter()
+        attachTabLayoutMediator()
     }
 
-    private fun initializeViewPagerAdapter(view: View){
-        adapter = TabsPagerAdapter(this)
-        viewPager = view.findViewById(R.id.main_view_pager)
-        viewPager.adapter = adapter
+    private fun initializeViewPagerAdapter(){
+        main_view_pager.adapter = TabsPagerAdapter(this)
     }
 
-    private fun attachTabLayoutMediator(view : View) {
-        val tabLayout: TabLayout = view.findViewById(R.id.main_tab_layout)
-        TabLayoutMediator(tabLayout, viewPager) {tab, position ->
+    private fun attachTabLayoutMediator() {
+        TabLayoutMediator(main_tab_layout, main_view_pager) {tab, position ->
             tab.text = when(position) {
                 0 -> getString(R.string.plants_tab)
                 else -> getString(R.string.search_tab)

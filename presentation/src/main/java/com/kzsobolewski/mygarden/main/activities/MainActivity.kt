@@ -1,7 +1,8 @@
-package com.kzsobolewski.mygarden
+package com.kzsobolewski.mygarden.main.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.kzsobolewski.mygarden.R
 
 class MainActivity : AppCompatActivity() {
 

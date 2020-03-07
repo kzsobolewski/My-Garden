@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".main.activities.MainActivity">
 
     <include layout="@layout/toolbar"
         android:id="@+id/toolbar" />
 
-    <fragment android:name="com.kzsobolewski.mygarden.TabsFragment"
+    <fragment android:name="com.kzsobolewski.mygarden.main.fragments.TabsFragment"
         android:id="@+id/headlines_fragment"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 </LinearLayout>
