@@ -12,17 +12,13 @@ class PlatListAdapter internal constructor(context: Context) :
     RecyclerView.Adapter<PlatListAdapter.ViewHolder>() {
 
     private var dummyPlants = listOf(
-        Plant("1", "something"),
-        Plant("2", "something"),
-        Plant("3", "something"),
-        Plant("3", "something"),
-        Plant("3", "something"),
-        Plant("3", "something"),
-        Plant("3", "something"),
-        Plant("3", "something"),
-        Plant("3", "something"),
-        Plant("3", "something"),
-        Plant("4", "something")
+        Plant("Plant 1", "something"),
+        Plant("Plant 2", "something"),
+        Plant("Plant 3", "something"),
+        Plant("Plant 4", "something"),
+        Plant("Plant 5", "something"),
+        Plant("Plant 6", "something"),
+        Plant("Plant 7", "something")
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ViewHolder {

@@ -8,15 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.plants.adapters.PlatListAdapter
 
 class PlantsFragment : Fragment() {
 
+
     companion object {
         fun newInstance() =
             PlantsFragment()
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
