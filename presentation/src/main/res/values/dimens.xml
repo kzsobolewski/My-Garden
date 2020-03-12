@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="item_plant_name_margin">16dp</dimen>
+    <dimen name="item_thumbnail_margin">16dp</dimen>
+
+    <dimen name="item_plant_name_font">24sp</dimen>
+
+    <dimen name="item_thumbnail">96dp</dimen>
+</resources>
