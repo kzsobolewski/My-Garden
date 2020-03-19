@@ -13,18 +13,21 @@ import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.databinding.FragmentTabsBinding
 import com.kzsobolewski.mygarden.main.adapters.TabsPagerAdapter
 import com.kzsobolewski.mygarden.main.viewmodels.TabsViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class TabsFragment : Fragment() {
 
     private lateinit var binding: FragmentTabsBinding
+    val viewModel by viewModel<TabsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tabs, container, false)
-        binding.viewModel = TabsViewModel()
+        binding.viewModel = viewModel
+
         return binding.root
     }
 
