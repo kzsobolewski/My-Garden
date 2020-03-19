@@ -1,2 +1,5 @@
-include ':presentation', ':data', ':domain'
-rootProject.name='My Garden'
+rootProject.name = 'My Garden'
+include ':presentation'
+include ':data'
+include ':domain'
+include ':app'

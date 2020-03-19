@@ -2,37 +2,59 @@ package com.kzsobolewski.mygarden.main.fragments
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
-import com.kzsobolewski.mygarden.main.adapters.TabsPagerAdapter
 import com.kzsobolewski.mygarden.R
-import kotlinx.android.synthetic.main.fragment_tabs.*
+import com.kzsobolewski.mygarden.databinding.FragmentTabsBinding
+import com.kzsobolewski.mygarden.main.adapters.TabsPagerAdapter
+import com.kzsobolewski.mygarden.main.viewmodels.TabsViewModel
 
 
 class TabsFragment : Fragment() {
+
+    private lateinit var binding: FragmentTabsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_tabs, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tabs, container, false)
+        binding.viewModel = TabsViewModel()
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initializeViewPagerAdapter()
         attachTabLayoutMediator()
+        listenForViewPagerCallbacks()
     }
 
-    private fun initializeViewPagerAdapter(){
-        main_view_pager.adapter = TabsPagerAdapter(this)
+    private fun listenForViewPagerCallbacks() {
+        binding.mainViewPager.registerOnPageChangeCallback(ViewPagerCallback())
+    }
+
+    inner class ViewPagerCallback : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+            when (position) {
+                0 -> binding.newPlantFab.show()
+                else -> binding.newPlantFab.hide()
+            }
+        }
+    }
+
+    private fun initializeViewPagerAdapter() {
+        binding.mainViewPager.adapter = TabsPagerAdapter(this)
     }
 
     private fun attachTabLayoutMediator() {
-        TabLayoutMediator(main_tab_layout, main_view_pager) {tab, position ->
-            tab.text = when(position) {
+        TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager) { tab, position ->
+            tab.text = when (position) {
                 0 -> getString(R.string.plants_tab)
                 else -> getString(R.string.search_tab)
             }

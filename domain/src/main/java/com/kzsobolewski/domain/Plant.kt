@@ -1,6 +1,4 @@
-package com.kzsobolewski.mygarden.plants
-
-import android.graphics.Bitmap
+package com.kzsobolewski.domain
 
 data class Plant(
     val name: String,
