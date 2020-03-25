@@ -9,13 +9,10 @@ class MyGarden : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
         startKoin {
-            startKoin {
-                androidLogger()
-                androidContext(this@MyGarden)
-                modules(appModule)
-            }
+            androidLogger()
+            androidContext(this@MyGarden)
+            modules(appModule)
         }
     }
 }

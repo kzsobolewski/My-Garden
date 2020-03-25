@@ -1,8 +1,7 @@
 package com.kzsobolewski.mygarden.di
 
-import com.kzsobolewski.mygarden.main.viewmodels.TabsViewModel
-import org.koin.dsl.module
+import com.kzsobolewski.mygarden.main.di.mainModule
+import com.kzsobolewski.mygarden.plants.di.plantsModule
+import com.kzsobolewski.mygarden.search.di.searchModule
 
-val presentationModule = module {
-    factory { TabsViewModel() }
-}
+val presentationModule = listOf(mainModule, plantsModule, searchModule)

@@ -1,12 +1,7 @@
 package com.kzsobolewski.app
 
-import com.kzsobolewski.domain.Plant
-import org.koin.dsl.module
+import com.kzsobolewski.mygarden.di.presentationModule
 
-val appModule = module {
-
-    factory { Plant("plant1", "...") }
-
-}
+val appModule = presentationModule
 
 

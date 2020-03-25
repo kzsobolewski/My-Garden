@@ -6,4 +6,3 @@ data class Plant(
     val thumbnail: Int = -1,
     val hydration: Float = 1f
 )
-
