@@ -28,7 +28,7 @@ class PlatListAdapter(var Plants: List<Plant>) :
         fun bind(item: Plant) {
             binding.item = item
             Picasso.get().apply {
-                setIndicatorsEnabled(true)
+                isLoggingEnabled = true
                 load("https://pngimage.net/wp-content/uploads/2018/06/png-small.png")
                     .placeholder(R.drawable.sample_logo)
                     .error(R.drawable.ic_launcher_background)
