@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.kzsobolewski.domain.Plant
 import com.kzsobolewski.mygarden.R
-import com.kzsobolewski.mygarden.main.viewmodels.TabsViewModel
 import com.kzsobolewski.mygarden.plants.adapters.PlatListAdapter
 import com.kzsobolewski.mygarden.plants.viewmodels.PlantsViewModel
 import kotlinx.android.synthetic.main.fragment_plants.*
@@ -33,7 +32,7 @@ class PlantsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        
+
         showData()
         return inflater.inflate(R.layout.fragment_plants, container, false)
     }

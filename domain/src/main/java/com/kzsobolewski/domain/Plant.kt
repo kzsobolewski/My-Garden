@@ -6,3 +6,5 @@ data class Plant(
     val thumbnail: String = "",
     val hydration: Float = 1f
 )
+
+typealias PlantsResponse = Map<String, Plant>

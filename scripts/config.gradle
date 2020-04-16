@@ -1,0 +1,7 @@
+android {
+    buildTypes {
+        all {
+            buildConfigField("String", "API_BASE_URL", "\"https://my-garden-ea5bb.firebaseio.com\"")
+        }
+    }
+}

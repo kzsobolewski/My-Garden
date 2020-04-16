@@ -1,14 +1,16 @@
 package com.kzsobolewski.data
 
 import com.kzsobolewski.domain.Plant
+import com.kzsobolewski.domain.PlantsResponse
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface IFirebaseApi {
 
-    @GET("/plants/M123.json")
-    suspend fun getPlants(): Plant
+    @GET("/plants.json")
+    suspend fun getPlants(): PlantsResponse
 
     @POST("/plants.json")
-    suspend fun savePlant(plant: Plant)
+    suspend fun savePlant(@Body plant: Plant)
 }

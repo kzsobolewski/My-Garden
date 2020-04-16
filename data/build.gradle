@@ -3,6 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+def scriptsDir = "$project.rootDir/scripts/"
+apply from: "$scriptsDir/config.gradle"
+
 android {
     compileSdkVersion 28
     buildToolsVersion "29.0.3"
@@ -42,6 +45,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx:19.2.1'
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation 'com.squareup.retrofit2:converter-gson:2.0.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.5.0'
     implementation 'com.google.code.gson:gson:2.8.6'
 
     implementation "org.koin:koin-android:$koin_version"
