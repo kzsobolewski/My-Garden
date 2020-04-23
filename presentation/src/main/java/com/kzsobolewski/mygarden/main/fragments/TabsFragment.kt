@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kzsobolewski.mygarden.R
@@ -19,7 +20,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class TabsFragment : Fragment() {
 
     private lateinit var binding: FragmentTabsBinding
-    val viewModel by viewModel<TabsViewModel>()
+    private val viewModel by viewModel<TabsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,9 +32,17 @@ class TabsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        handleNavController(view)
         initializeViewPagerAdapter()
         attachTabLayoutMediator()
         listenForViewPagerCallbacks()
+    }
+
+    private fun handleNavController(view: View) {
+        binding.newPlantFab.setOnClickListener {
+            Navigation.findNavController(view)
+                .navigate(R.id.action_tabsFragment_to_newPlantFragment)
+        }
     }
 
     private fun initializeViewPagerAdapter() {

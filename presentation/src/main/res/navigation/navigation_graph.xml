@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/tabsFragment">
+
+    <fragment
+        android:id="@+id/tabsFragment"
+        android:name="com.kzsobolewski.mygarden.main.fragments.TabsFragment"
+        android:label="TabsFragment" >
+        <action
+            android:id="@+id/action_tabsFragment_to_newPlantFragment"
+            app:destination="@id/newPlantFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"
+            app:popUpTo="@id/tabsFragment" />
+        <action
+            android:id="@+id/action_tabsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_tabsFragment_to_plantInfoFragment"
+            app:destination="@id/plantInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newPlantFragment"
+        android:name="com.kzsobolewski.mygarden.plants.fragments.NewPlantFragment"
+        android:label="new_plant_fragment"
+        tools:layout="@layout/fragment_new_plant" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.kzsobolewski.mygarden.main.fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/plantInfoFragment"
+        android:name="com.kzsobolewski.mygarden.main.fragments.PlantInfoFragment"
+        android:label="fragment_plant_info"
+        tools:layout="@layout/fragment_plant_info" />
+
+</navigation>

@@ -3,6 +3,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="item_plant_name_margin">16dp</dimen>
     <dimen name="item_thumbnail_margin">16dp</dimen>
+    <dimen name="default_margin">16dp</dimen>
 
     <dimen name="item_plant_name_font">24sp</dimen>
 

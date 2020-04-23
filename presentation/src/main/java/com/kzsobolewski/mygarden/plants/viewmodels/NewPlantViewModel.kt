@@ -1,4 +1,4 @@
-package com.kzsobolewski.mygarden.main.viewmodels
+package com.kzsobolewski.mygarden.plants.viewmodels
 
 import android.view.View
 import androidx.lifecycle.ViewModel
@@ -8,13 +8,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class TabsViewModel : ViewModel() {
+class NewPlantViewModel : ViewModel() {
 
     private val repository = FirebaseRepository()
+    var plantToAdd: Plant = Plant(name = "Data binding plant")
 
-    fun goToNewPlantFragment() {
+    fun addNewPlantToFirebase(view: View) {
         GlobalScope.launch(Dispatchers.IO) {
-            repository.savePlant(Plant("FAB"))
+            repository.savePlant(plantToAdd)
         }
     }
 }

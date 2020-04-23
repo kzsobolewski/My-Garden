@@ -8,8 +8,14 @@ import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.databinding.PlantItemBinding
 import com.squareup.picasso.Picasso
 
-class PlatListAdapter(var Plants: List<Plant>) :
-    RecyclerView.Adapter<PlatListAdapter.ViewHolder>() {
+class PlantListAdapter() :
+    RecyclerView.Adapter<PlantListAdapter.ViewHolder>() {
+
+    private var cachedPlants: List<Plant> = listOf<Plant>()
+
+    internal fun setPlants(plants: List<Plant>) {
+        cachedPlants = plants
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -18,10 +24,10 @@ class PlatListAdapter(var Plants: List<Plant>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(Plants[position])
+        holder.bind(cachedPlants[position])
     }
 
-    override fun getItemCount(): Int = Plants.size
+    override fun getItemCount(): Int = cachedPlants.size
 
     inner class ViewHolder(private val binding: PlantItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
