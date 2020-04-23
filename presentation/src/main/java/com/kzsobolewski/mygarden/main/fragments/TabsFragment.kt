@@ -2,9 +2,7 @@ package com.kzsobolewski.mygarden.main.fragments
 
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -36,6 +34,17 @@ class TabsFragment : Fragment() {
         initializeViewPagerAdapter()
         attachTabLayoutMediator()
         listenForViewPagerCallbacks()
+
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        //inflater.inflate(R.menu.tabs, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
     }
 
     private fun handleNavController(view: View) {

@@ -33,7 +33,7 @@
             android:ems="10"
             android:hint="Name"
             android:inputType="textPersonName"
-            android:text="@={viewModel.plantToAdd.name}" />
+            android:text="@={viewModel.name}" />
 
         <EditText
             android:id="@+id/plant_description"
@@ -45,7 +45,7 @@
             android:gravity="start|top"
             android:hint="Description"
             android:inputType="textMultiLine"
-            android:text="@={viewModel.plantToAdd.description}" />
+            android:text="@={viewModel.description}" />
 
         <TextView
             android:id="@+id/hydration_text_view"
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
             android:layout_weight="1"
-            android:onClick="@{viewModel::addNewPlantToFirebase}"
+            android:onClick="@{v-> viewModel.addNewPlantToFirebase()}"
             android:text="ADD" />
 
     </LinearLayout>

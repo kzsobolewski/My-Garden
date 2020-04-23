@@ -1,21 +1,32 @@
 package com.kzsobolewski.mygarden.plants.viewmodels
 
-import android.view.View
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kzsobolewski.data.FirebaseRepository
 import com.kzsobolewski.domain.Plant
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class NewPlantViewModel : ViewModel() {
 
     private val repository = FirebaseRepository()
-    var plantToAdd: Plant = Plant(name = "Data binding plant")
+    val name = MutableLiveData<String>()
+    val description = MutableLiveData<String>()
 
-    fun addNewPlantToFirebase(view: View) {
-        GlobalScope.launch(Dispatchers.IO) {
-            repository.savePlant(plantToAdd)
+    val plantSaved = MutableLiveData<Boolean>(false)
+
+    fun addNewPlantToFirebase() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.savePlant(createPlant())
+            plantSaved.postValue(true)
         }
+    }
+
+    private fun createPlant(): Plant {
+        return Plant(
+            name = name.value ?: "",
+            description = description.value ?: ""
+        )
     }
 }

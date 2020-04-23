@@ -1,19 +1,17 @@
 package com.kzsobolewski.mygarden.main.viewmodels
 
-import android.view.View
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kzsobolewski.data.FirebaseRepository
 import com.kzsobolewski.domain.Plant
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class TabsViewModel : ViewModel() {
 
     private val repository = FirebaseRepository()
 
     fun goToNewPlantFragment() {
-        GlobalScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.savePlant(Plant("FAB"))
         }
     }
