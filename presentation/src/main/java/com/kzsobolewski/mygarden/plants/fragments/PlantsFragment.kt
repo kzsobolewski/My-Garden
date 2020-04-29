@@ -13,14 +13,14 @@ import androidx.navigation.Navigation
 import com.kzsobolewski.domain.Plant
 import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.plants.adapters.PlantListAdapter
-import com.kzsobolewski.mygarden.plants.adapters.iOnPlantListener
+import com.kzsobolewski.mygarden.plants.adapters.OnPlantListener
 import com.kzsobolewski.mygarden.plants.viewmodels.PlantsViewModel
 import kotlinx.android.synthetic.main.fragment_plants.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class PlantsFragment : Fragment(), iOnPlantListener {
+class PlantsFragment : Fragment(), OnPlantListener {
 
     val viewModel by viewModel<PlantsViewModel>()
     private var currentPlants: List<Plant> = listOf()
@@ -49,9 +49,13 @@ class PlantsFragment : Fragment(), iOnPlantListener {
     }
 
     private fun downloadPlants() {
-        lifecycleScope.launch {
+        /*lifecycleScope.launch {
             val value = viewModel.loadPlantsAsync().await()
             if (!value)
+                Toast.makeText(requireContext(), "error ocurred", Toast.LENGTH_LONG).show()
+        }*/
+        viewModel.loadPlantsAsync { isLoaded ->
+            if (!isLoaded)
                 Toast.makeText(requireContext(), "error ocurred", Toast.LENGTH_LONG).show()
         }
     }
@@ -69,16 +73,26 @@ class PlantsFragment : Fragment(), iOnPlantListener {
 
     private fun handleSwipeRefresh() {
         swipeRefreshView.setOnRefreshListener {
-            lifecycleScope.launch {
+            //lifecycleScope.launch {
                 // moze lepiej by bylo podawac callback jako argument metody loadPlants()
-                val isLoaded = viewModel.loadPlantsAsync().await()
-                if (isLoaded)
+                /*val isLoaded = viewModel.loadPlantsAsync().await()
+
+                if (!isLoaded)
+                    Toast.makeText(requireContext(), "error ocurred", Toast.LENGTH_LONG).show()
+
+                swipeRefreshView.isRefreshing = false*/
+
+                viewModel.loadPlantsAsync { isLoaded ->
+                    if (!isLoaded)
+                        Toast.makeText(requireContext(), "error ocurred", Toast.LENGTH_LONG).show()
+
                     swipeRefreshView.isRefreshing = false
-            }
+                }
+            //}
         }
     }
 
-    override fun OnPlantClick(position: Int) {
+    override fun onPlantClick(position: Int) {
         val bundle = bundleOf("key" to currentPlants[position])
         Navigation.findNavController(requireView())
             .navigate(R.id.action_tabsFragment_to_plantInfoFragment, bundle)

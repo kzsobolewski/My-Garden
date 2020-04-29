@@ -12,7 +12,7 @@ class MyGarden : Application() {
         startKoin {
             androidLogger()
             androidContext(this@MyGarden)
-            modules(appModule)
+            modules(appModules)
         }
     }
 }

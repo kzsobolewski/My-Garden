@@ -2,10 +2,7 @@ package com.kzsobolewski.data
 
 import com.kzsobolewski.domain.Plant
 import com.kzsobolewski.domain.PlantsResponse
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface IFirebaseApi {
 

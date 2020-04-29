@@ -1,5 +1,6 @@
 package com.kzsobolewski.data
 
+import com.google.gson.GsonBuilder
 import com.kzsobolewski.domain.IDatabaseRepository
 import com.kzsobolewski.domain.Plant
 import com.kzsobolewski.domain.PlantsResponse
@@ -21,9 +22,13 @@ class FirebaseRepository : IDatabaseRepository {
         .addInterceptor(loggingInterceptor)
         .build()
 
+    private val gson = GsonBuilder()
+        .setDateFormat("EEE dd, yyyy HH:mm:ss")
+        .create()
+
     private val retrofit = Retrofit.Builder()
         .baseUrl(BuildConfig.API_BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(gson))
         .client(client)
         .build()
 

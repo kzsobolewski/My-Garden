@@ -16,13 +16,13 @@
         android:layout_margin="8dp"
         android:background="@color/cardview_light_background"
         android:clickable="true"
-        android:elevation="4dp">
+        android:elevation="4dp"
+        android:padding="20dp">
 
         <ImageView
             android:id="@+id/plant_image"
             android:layout_width="@dimen/item_thumbnail"
             android:layout_height="@dimen/item_thumbnail"
-            android:layout_margin="@dimen/default_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
