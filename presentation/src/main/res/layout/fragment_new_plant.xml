@@ -30,9 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
             android:layout_weight="1"
+            android:inputType="text"
             android:ems="10"
             android:hint="Name"
-            android:inputType="textPersonName"
             android:text="@={viewModel.name}" />
 
         <EditText
@@ -58,7 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:progress="@={viewModel.hydration}" />
 
         <Button
             android:id="@+id/add_button"

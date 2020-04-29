@@ -1,20 +1,25 @@
 package com.kzsobolewski.mygarden.plants.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kzsobolewski.domain.Plant
 import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.databinding.PlantItemBinding
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.plant_item.view.*
 
-class PlantListAdapter() :
+class PlantListAdapter(
+    private val onPlantListener: iOnPlantListener,
+    private var cachedPlants: List<Plant> = listOf<Plant>()
+) :
     RecyclerView.Adapter<PlantListAdapter.ViewHolder>() {
 
-    private var cachedPlants: List<Plant> = listOf<Plant>()
 
     internal fun setPlants(plants: List<Plant>) {
         cachedPlants = plants
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,23 +29,37 @@ class PlantListAdapter() :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(cachedPlants[position])
+        holder.bind(cachedPlants[position], onPlantListener)
+        loadImageToView(holder, position)
     }
+
+    private fun loadImageToView(holder: ViewHolder, position: Int) {
+        Picasso.get().apply {
+            isLoggingEnabled = true
+            load(cachedPlants[position].thumbnail)
+                .placeholder(R.drawable.sample_logo)
+                .error(R.drawable.ic_launcher_background)
+                .into(holder.itemView.plant_image)
+        }
+    }
+
 
     override fun getItemCount(): Int = cachedPlants.size
 
     inner class ViewHolder(private val binding: PlantItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Plant) {
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+
+        private lateinit var onPlantListener: iOnPlantListener
+
+        fun bind(item: Plant, onPlantListener: iOnPlantListener) {
             binding.item = item
-            Picasso.get().apply {
-                isLoggingEnabled = true
-                load("https://pngimage.net/wp-content/uploads/2018/06/png-small.png")
-                    .placeholder(R.drawable.sample_logo)
-                    .error(R.drawable.ic_launcher_background)
-                    .into(binding.plantImage)
-            }
             binding.executePendingBindings()
+            this.onPlantListener = onPlantListener
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(p0: View?) {
+            onPlantListener.OnPlantClick(adapterPosition)
         }
     }
 }

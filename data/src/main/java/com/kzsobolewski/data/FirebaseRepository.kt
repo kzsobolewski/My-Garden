@@ -36,4 +36,8 @@ class FirebaseRepository : IDatabaseRepository {
     override suspend fun getPlants(): PlantsResponse {
         return service.getPlants()
     }
+
+    override suspend fun deletePlant(id: String): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

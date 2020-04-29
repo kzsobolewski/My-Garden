@@ -5,37 +5,26 @@ import com.kzsobolewski.data.FirebaseRepository
 import com.kzsobolewski.domain.Plant
 import com.kzsobolewski.domain.PlantsResponse
 import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
-class PlantsViewModel : ViewModel() {
+class PlantsViewModel(private val repository: FirebaseRepository) : ViewModel() {
 
-    private val repository = FirebaseRepository()
+    private val unformattedPlants = MutableLiveData<PlantsResponse>()
 
-    private val _plants2 = MutableLiveData<PlantsResponse>()
+    val plants: LiveData<List<Plant>> =
+        unformattedPlants.map { value -> value.values.sortedByDescending { it.time } }
 
-    private val _plants: LiveData<PlantsResponse> = liveData(Dispatchers.IO) {
-        val plants = repository.getPlants()
-        emit(plants)
-    }
-
-    val plants: LiveData<List<Plant>> = _plants2.map { value -> value.values.sortedBy { it.name } }
-
-    fun loadPlants(): Deferred<Boolean> {
+    // TODO Callback instead of deffered return value
+    fun loadPlantsAsync(): Deferred<Boolean> {
         return viewModelScope.async {
             try {
-                val plants = repository.getPlants()
-                _plants2.postValue(plants)
-                true
+                val data = repository.getPlants()
+                unformattedPlants.postValue(data)
+                return@async true
             } catch (e: Exception) {
-                false
+                return@async false
             }
         }
-
-        /*viewModelScope.launch {
-            val plants = repository.getPlants()
-            _plants2.postValue(plants)
-
-        }*/
     }
+
 }

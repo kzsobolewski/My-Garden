@@ -5,20 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.navigation.Navigation
-import com.kzsobolewski.mygarden.databinding.FragmentNewPlantBinding
-import com.kzsobolewski.mygarden.plants.viewmodels.NewPlantViewModel
+import com.kzsobolewski.domain.Plant
+import com.kzsobolewski.mygarden.databinding.FragmentPlantInfoBinding
+import com.kzsobolewski.mygarden.plants.viewmodels.PlantInfoViewModel
+import kotlinx.android.synthetic.main.fragment_plant_info.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class NewPlantFragment : Fragment() {
+class PlantInfoFragment : Fragment() {
 
-    val viewModel by viewModel<NewPlantViewModel>()
+    val viewModel by viewModel<PlantInfoViewModel>()
 
     companion object {
-        fun newInstance(): NewPlantFragment {
+        fun newInstance(): PlantInfoFragment {
             val args = Bundle()
-            val fragment = NewPlantFragment()
+            val fragment = PlantInfoFragment()
             fragment.arguments = args
             return fragment
         }
@@ -30,20 +30,19 @@ class NewPlantFragment : Fragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         val binding =
-            FragmentNewPlantBinding
+            FragmentPlantInfoBinding
                 .inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.isPlantSaved.observe(viewLifecycleOwner, Observer { saved ->
-            if (saved) {
-                Navigation.findNavController(view).popBackStack()
-            }
-        })
-    }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        val plant = arguments?.getParcelable<Plant>("key")
 
+        info_name.text = plant?.name ?: ""
+        info_description.text = plant?.description ?: ""
+        info_hydration.text = plant?.hydration.toString()
+    }
 }

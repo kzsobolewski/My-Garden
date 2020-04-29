@@ -1,4 +1,4 @@
-package com.kzsobolewski.mygarden.main.viewmodels
+package com.kzsobolewski.mygarden.plants.viewmodels
 
 import androidx.lifecycle.ViewModel
 

@@ -8,25 +8,26 @@ import com.kzsobolewski.domain.Plant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class NewPlantViewModel : ViewModel() {
+class NewPlantViewModel(private val repository: FirebaseRepository) : ViewModel() {
 
-    private val repository = FirebaseRepository()
     val name = MutableLiveData<String>()
     val description = MutableLiveData<String>()
+    val hydration = MutableLiveData<Int>()
 
-    val plantSaved = MutableLiveData<Boolean>(false)
+    val isPlantSaved = MutableLiveData<Boolean>(false)
 
     fun addNewPlantToFirebase() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.savePlant(createPlant())
-            plantSaved.postValue(true)
+            isPlantSaved.postValue(true)
         }
     }
 
     private fun createPlant(): Plant {
         return Plant(
             name = name.value ?: "",
-            description = description.value ?: ""
+            description = description.value ?: "",
+            hydration = hydration.value ?: 0
         )
     }
 }

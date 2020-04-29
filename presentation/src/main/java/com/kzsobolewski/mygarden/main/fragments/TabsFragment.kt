@@ -3,6 +3,8 @@ package com.kzsobolewski.mygarden.main.fragments
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -11,43 +13,50 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.databinding.FragmentTabsBinding
 import com.kzsobolewski.mygarden.main.adapters.TabsPagerAdapter
-import com.kzsobolewski.mygarden.main.viewmodels.TabsViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class TabsFragment : Fragment() {
 
     private lateinit var binding: FragmentTabsBinding
-    private val viewModel by viewModel<TabsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tabs, container, false)
-        binding.viewModel = viewModel
+        (activity as AppCompatActivity).apply {
+            setSupportActionBar(main_toolbar as Toolbar)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        handleNavController(view)
+        handleFabClick(view)
         initializeViewPagerAdapter()
         attachTabLayoutMediator()
         listenForViewPagerCallbacks()
-
         setHasOptionsMenu(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        //inflater.inflate(R.menu.tabs, menu)
+        inflater.inflate(R.menu.toolbar_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.settings_option -> Navigation.findNavController(requireView())
+                .navigate(R.id.action_tabsFragment_to_settingsFragment)
+
+            R.id.about_option -> Navigation.findNavController(requireView())
+                .navigate(R.id.action_tabsFragment_to_aboutFragment)
+        }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun handleNavController(view: View) {
+    private fun handleFabClick(view: View) {
         binding.newPlantFab.setOnClickListener {
             Navigation.findNavController(view)
                 .navigate(R.id.action_tabsFragment_to_newPlantFragment)
@@ -80,4 +89,6 @@ class TabsFragment : Fragment() {
             }
         }
     }
+
+
 }
