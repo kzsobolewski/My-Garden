@@ -7,53 +7,71 @@
 
         <variable
             name="item"
-            type="com.kzsobolewski.domain.Plant" />
+            type="com.kzsobolewski.domain.models.Plant" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <com.github.florent37.shapeofview.shapes.RoundRectView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:background="@color/cardview_light_background"
         android:clickable="true"
-        android:elevation="4dp">
+        app:shape_roundRect_bottomLeftRadius="10dp"
+        app:shape_roundRect_bottomRightRadius="10dp"
+        app:shape_roundRect_topLeftRadius="10dp"
+        app:shape_roundRect_topRightRadius="10dp">
 
-        <ImageView
-            android:id="@+id/plant_image"
-            android:layout_width="@dimen/item_thumbnail"
-            android:layout_height="@dimen/item_thumbnail"
-            android:layout_margin="@dimen/default_margin"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@color/design_default_color_secondary" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/plant_name"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/item_plant_name_margin"
-            android:text="@{item.name}"
-            android:textSize="@dimen/item_plant_name_font"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/plant_image"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@color/design_default_color_secondary"
-            tools:text="Plant 1" />
+            android:background="@color/cardview_light_background"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:padding="8dp">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
-            android:text="@{Integer.toString(item.hydration)}"
-            android:textColor="@color/design_default_color_primary_dark"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/plant_name"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="120" />
+            <com.github.florent37.shapeofview.shapes.CircleView
+                android:id="@+id/circle_thumbnail"
+                android:layout_width="@dimen/item_thumbnail"
+                android:layout_height="@dimen/item_thumbnail"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/plant_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:src="@color/design_default_color_secondary" />
+
+            </com.github.florent37.shapeofview.shapes.CircleView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/plant_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/item_plant_name_margin"
+                android:text="@{item.name}"
+                android:textSize="@dimen/item_plant_name_font"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/circle_thumbnail"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@color/design_default_color_secondary"
+                tools:text="Plant 1" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/default_margin"
+                android:text="@{Integer.toString(item.hydration)}"
+                android:textColor="@color/design_default_color_primary_dark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/plant_name"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="120" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.github.florent37.shapeofview.shapes.RoundRectView>
 </layout>

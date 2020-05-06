@@ -1,14 +1,14 @@
 package com.kzsobolewski.data
 
-import com.kzsobolewski.domain.IDatabaseRepository
-import com.kzsobolewski.domain.models.Plant
-import com.kzsobolewski.domain.models.PlantsResponse
+import com.kzsobolewski.domain.ITrefleRepository
+import com.kzsobolewski.domain.models.TrefleDetailedPlant
+import com.kzsobolewski.domain.models.TreflePlant
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class FirebaseRepository : IDatabaseRepository, IFirebaseApi {
+class TrefleRepository : ITrefleRepository, ITrefleApi {
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         if (BuildConfig.BUILD_TYPE == "debug")
@@ -22,22 +22,18 @@ class FirebaseRepository : IDatabaseRepository, IFirebaseApi {
         .build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl(BuildConfig.API_BASE_URL)
+        .baseUrl(BuildConfig.API_TREFLE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()
 
-    private val service: IFirebaseApi = retrofit.create(IFirebaseApi::class.java)
+    private val service: ITrefleApi = retrofit.create(ITrefleApi::class.java)
 
-    override suspend fun savePlant(plant: Plant) {
-        service.savePlant(plant)
+    override suspend fun getPlantDetails(id: Int): TrefleDetailedPlant {
+        return service.getPlantDetails(id)
     }
 
-    override suspend fun getPlants(): PlantsResponse {
-        return service.getPlants()
-    }
-
-    override suspend fun deletePlant(id: String) {
-        service.deletePlant(id)
+    override suspend fun getPlants(searchedPlant: String): List<TreflePlant> {
+        return service.getPlants(searchedPlant)
     }
 }

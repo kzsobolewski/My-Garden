@@ -2,13 +2,19 @@ package com.kzsobolewski.mygarden.search.fragments
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.kzsobolewski.mygarden.R
+import com.kzsobolewski.mygarden.search.viewmodels.SearchViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
+
+    val viewModel by viewModel<SearchViewModel>()
 
     companion object {
         fun newInstance(): SearchFragment {
@@ -25,5 +31,13 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_search, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.loadPlants()
+        viewModel.plants.observe(viewLifecycleOwner, Observer { plants ->
+            Log.d("trefleResponse", plants[0].scientific_name)
+        })
     }
 }

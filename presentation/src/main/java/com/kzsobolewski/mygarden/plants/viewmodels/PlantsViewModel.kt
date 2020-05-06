@@ -1,28 +1,33 @@
 package com.kzsobolewski.mygarden.plants.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.*
-import com.kzsobolewski.data.FirebaseRepository
-import com.kzsobolewski.domain.Plant
-import com.kzsobolewski.domain.PlantsResponse
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
+import com.kzsobolewski.domain.IDatabaseRepository
+import com.kzsobolewski.domain.models.Plant
+import com.kzsobolewski.domain.models.PlantsResponse
+import kotlinx.coroutines.launch
 
-class PlantsViewModel(private val repository: FirebaseRepository) : ViewModel() {
+class PlantsViewModel(private val repository: IDatabaseRepository) : ViewModel() {
 
     private val unformattedPlants = MutableLiveData<PlantsResponse>()
 
     val plants: LiveData<List<Plant>> =
-        unformattedPlants.map { value -> value.values.sortedByDescending { it.time } }
+        unformattedPlants.map { apiResponse ->
+            apiResponse.map { entity ->
+                entity.value.copy(id = entity.key)
+            }
+        }
 
-    // TODO Callback instead of deffered return value
-    fun loadPlantsAsync(): Deferred<Boolean> {
-        return viewModelScope.async {
+
+    fun loadPlants(callback: (value: Boolean) -> Unit) {
+        viewModelScope.launch {
             try {
                 val data = repository.getPlants()
                 unformattedPlants.postValue(data)
-                return@async true
+                callback.invoke(true)
             } catch (e: Exception) {
-                return@async false
+                Log.e(PlantsViewModel::class.simpleName, e.localizedMessage, e)
+                callback.invoke(false)
             }
         }
     }

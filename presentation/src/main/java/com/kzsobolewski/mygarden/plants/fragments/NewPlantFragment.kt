@@ -1,9 +1,12 @@
 package com.kzsobolewski.mygarden.plants.fragments
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
@@ -34,6 +37,11 @@ class NewPlantFragment : Fragment() {
                 .inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        (activity as AppCompatActivity).supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+            //TODO listener for popbackstack in toolbar
+        }
         return binding.root
     }
 
@@ -42,8 +50,20 @@ class NewPlantFragment : Fragment() {
         viewModel.isPlantSaved.observe(viewLifecycleOwner, Observer { saved ->
             if (saved) {
                 Navigation.findNavController(view).popBackStack()
+                hideKeyboard()
             }
         })
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager =
+            requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(requireView().windowToken, 0)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as AppCompatActivity).supportActionBar?.show()
     }
 
 }

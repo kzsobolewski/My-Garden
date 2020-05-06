@@ -1,11 +1,8 @@
 package com.kzsobolewski.data
 
-import com.kzsobolewski.domain.Plant
-import com.kzsobolewski.domain.PlantsResponse
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.POST
+import com.kzsobolewski.domain.models.Plant
+import com.kzsobolewski.domain.models.PlantsResponse
+import retrofit2.http.*
 
 interface IFirebaseApi {
 
@@ -15,6 +12,6 @@ interface IFirebaseApi {
     @POST("/plants.json")
     suspend fun savePlant(@Body plant: Plant)
 
-    @DELETE("/plants.json")
-    suspend fun deletePlant(@Body id: String) : String
+    @DELETE("/plants/{id}.json")
+    suspend fun deletePlant(@Path("id") id: String)
 }

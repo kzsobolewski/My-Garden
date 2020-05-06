@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kzsobolewski.domain.Plant
+import com.kzsobolewski.domain.models.Plant
 import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.databinding.PlantItemBinding
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.plant_item.view.*
 
 class PlantListAdapter(
-    private val onPlantListener: iOnPlantListener,
+    private val onPlantListener: OnPlantListener,
     private var cachedPlants: List<Plant> = listOf<Plant>()
 ) :
     RecyclerView.Adapter<PlantListAdapter.ViewHolder>() {
@@ -24,7 +24,7 @@ class PlantListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = PlantItemBinding.inflate(inflater)
+        val binding = PlantItemBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
     }
 
@@ -49,9 +49,9 @@ class PlantListAdapter(
     inner class ViewHolder(private val binding: PlantItemBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
-        private lateinit var onPlantListener: iOnPlantListener
+        private lateinit var onPlantListener: OnPlantListener
 
-        fun bind(item: Plant, onPlantListener: iOnPlantListener) {
+        fun bind(item: Plant, onPlantListener: OnPlantListener) {
             binding.item = item
             binding.executePendingBindings()
             this.onPlantListener = onPlantListener
@@ -59,7 +59,7 @@ class PlantListAdapter(
         }
 
         override fun onClick(p0: View?) {
-            onPlantListener.OnPlantClick(adapterPosition)
+            onPlantListener.onPlantClick(adapterPosition)
         }
     }
 }
