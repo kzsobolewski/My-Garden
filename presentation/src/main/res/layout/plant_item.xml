@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:clickable="true"
         app:shape_roundRect_bottomLeftRadius="10dp"
         app:shape_roundRect_bottomRightRadius="10dp"
         app:shape_roundRect_topLeftRadius="10dp"
@@ -25,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/cardview_light_background"
-            android:clickable="true"
             android:elevation="4dp"
             android:padding="8dp">
 

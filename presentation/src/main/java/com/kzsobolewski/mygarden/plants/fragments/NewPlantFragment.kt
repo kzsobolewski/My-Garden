@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.kzsobolewski.mygarden.databinding.FragmentNewPlantBinding
 import com.kzsobolewski.mygarden.plants.viewmodels.NewPlantViewModel
+import kotlinx.android.synthetic.main.toolbar.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class NewPlantFragment : Fragment() {
@@ -61,9 +62,5 @@ class NewPlantFragment : Fragment() {
         inputMethodManager.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        (activity as AppCompatActivity).supportActionBar?.show()
-    }
 
 }

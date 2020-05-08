@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.search.viewmodels.SearchViewModel
+import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
@@ -39,5 +40,8 @@ class SearchFragment : Fragment() {
         viewModel.plants.observe(viewLifecycleOwner, Observer { plants ->
             Log.d("trefleResponse", plants[0].scientific_name)
         })
+        search_button.setOnClickListener {
+
+        }
     }
 }
