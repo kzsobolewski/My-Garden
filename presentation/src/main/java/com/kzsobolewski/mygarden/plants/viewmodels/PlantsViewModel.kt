@@ -24,12 +24,31 @@ class PlantsViewModel(private val repository: IDatabaseRepository) : ViewModel()
             try {
                 val data = repository.getPlants()
                 unformattedPlants.postValue(data)
+
+                //instead of above use
+                //val data = userCase.execute()
+
                 callback.invoke(true)
             } catch (e: Exception) {
                 Log.e(PlantsViewModel::class.simpleName, e.localizedMessage, e)
                 callback.invoke(false)
             }
         }
+    }
+
+}
+
+/* example */
+class GetPlantsUseCase(private val repository: IDatabaseRepository){
+
+    suspend fun execute(): List<Plant> {
+        val data = repository.getPlants()
+
+        val list = data.map { entity ->
+            entity.value.copy(id = entity.key)
+        }
+
+        return list
     }
 
 }

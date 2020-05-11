@@ -49,6 +49,7 @@ class PlantInfoFragment : Fragment() {
             }
         }
 
+        //you have databinding here - you should use it to fill this content
         info_name.text = plant?.name ?: ""
         info_description.text = plant?.description ?: ""
         info_hydration.text = plant?.hydration.toString()

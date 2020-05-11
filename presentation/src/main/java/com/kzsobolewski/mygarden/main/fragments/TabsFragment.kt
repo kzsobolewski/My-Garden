@@ -57,13 +57,21 @@ class TabsFragment : Fragment() {
 
 
         when (item.itemId) {
-            R.id.settings_option -> Navigation.findNavController(requireView())
+            R.id.settings_option ->{
+                Navigation.findNavController(requireView())
                 .navigate(R.id.action_tabsFragment_to_settingsFragment)
 
-            R.id.about_option -> Navigation.findNavController(requireView())
-                .navigate(R.id.action_tabsFragment_to_aboutFragment)
+                return true
+            }
+
+            R.id.about_option -> {
+                Navigation.findNavController(requireView())
+                    .navigate(R.id.action_tabsFragment_to_aboutFragment)
+
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun handleFabClick(view: View) {

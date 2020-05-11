@@ -16,6 +16,7 @@
         android:padding="@dimen/default_margin"
         tools:context=".plants.fragments.PlantInfoFragment">
 
+<!-- you can use tools:text       -->
         <TextView
             android:id="@+id/info_name"
             android:layout_width="match_parent"
@@ -46,6 +47,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/info_description" />
 
+        <!--exporting resources! -->
         <Button
             android:id="@+id/delete_plant_button"
             android:layout_width="wrap_content"

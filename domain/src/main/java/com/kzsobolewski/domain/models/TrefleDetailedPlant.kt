@@ -1,5 +1,6 @@
 package com.kzsobolewski.domain.models
 
+//not all of this is needed
 data class TrefleDetailedPlant(
     val `class`: Any,
     val common_name: String,

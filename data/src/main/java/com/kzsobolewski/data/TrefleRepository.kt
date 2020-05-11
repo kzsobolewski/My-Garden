@@ -7,9 +7,9 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
-class TrefleRepository : ITrefleRepository, ITrefleApi {
-
+//again, interface not needed
+class TrefleRepository : ITrefleRepository/*, ITrefleApi*/ {
+    // this is pretty much the same implementation as in Firebase repository, so maybe we could extract in and provide by DI ?
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         if (BuildConfig.BUILD_TYPE == "debug")
             setLevel(HttpLoggingInterceptor.Level.BODY)

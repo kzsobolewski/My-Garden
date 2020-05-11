@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="isToolbarImageVisible"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +21,8 @@
             layout="@layout/toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:isImageVisible="@{isToolbarImageVisible}"/>
 
         <fragment
             android:id="@+id/nav_host_fragment"

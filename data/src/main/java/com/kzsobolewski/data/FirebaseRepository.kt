@@ -7,9 +7,10 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+//this is not needed, and in fact wrong
+class FirebaseRepository() : IDatabaseRepository/*, IFirebaseApi*/ {
 
-class FirebaseRepository : IDatabaseRepository, IFirebaseApi {
-
+    // try to move it to Koin module and use DI
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         if (BuildConfig.BUILD_TYPE == "debug")
             setLevel(HttpLoggingInterceptor.Level.BODY)
