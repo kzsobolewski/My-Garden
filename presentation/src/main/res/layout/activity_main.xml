@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="isToolbarImageVisible"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,6 +19,7 @@
         <include
             android:id="@+id/main_toolbar"
             layout="@layout/toolbar"
+            app:isImageVisible="@{isToolbarImageVisible}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

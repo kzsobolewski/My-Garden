@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_tabsFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_tabsFragment_to_treflePlantDetailedInfoFragment"
+            app:destination="@id/treflePlantDetailedInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/newPlantFragment"
@@ -47,5 +50,9 @@
         android:name="com.kzsobolewski.mygarden.main.fragments.AboutFragment"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/treflePlantDetailedInfoFragment"
+        android:name="com.kzsobolewski.mygarden.search.fragments.TreflePlantDetailedInfoFragment"
+        android:label="TreflePlantDetailedInfoFragment" />
 
 </navigation>

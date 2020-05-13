@@ -11,13 +11,15 @@ import kotlinx.coroutines.launch
 
 class SearchViewModel(private val repository: ITrefleRepository) : ViewModel() {
 
-    val plants = MutableLiveData<List<TreflePlant>>()
+    private val _plants = MutableLiveData<List<TreflePlant>>()
 
-    fun loadPlants() {
+    val plants: MutableLiveData<List<TreflePlant>> = _plants
+
+    fun loadPlants(searchedPlant: String) {
         viewModelScope.launch {
             try {
-                val data = repository.getPlants("green")
-                plants.postValue(data)
+                val data = repository.getPlants(searchedPlant)
+                _plants.postValue(data)
             } catch (e: Exception) {
                 Log.e(PlantsViewModel::class.simpleName, e.localizedMessage, e)
             }

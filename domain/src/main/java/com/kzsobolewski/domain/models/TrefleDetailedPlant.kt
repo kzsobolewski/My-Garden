@@ -22,10 +22,7 @@ data class TrefleDetailedPlant(
 )
 
 data class Genus(
-    val id: Int,
-    val link: String,
-    val name: String,
-    val slug: String
+    val name: String
 )
 
 data class MainSpecies(

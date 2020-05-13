@@ -6,16 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.kzsobolewski.mygarden.databinding.FragmentNewPlantBinding
+import com.kzsobolewski.mygarden.main.activities.MainActivity
+import com.kzsobolewski.mygarden.main.fragments.INavigationFragment
 import com.kzsobolewski.mygarden.plants.viewmodels.NewPlantViewModel
-import kotlinx.android.synthetic.main.toolbar.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class NewPlantFragment : Fragment() {
+class NewPlantFragment : Fragment(), INavigationFragment {
 
     val viewModel by viewModel<NewPlantViewModel>()
 
@@ -38,13 +38,13 @@ class NewPlantFragment : Fragment() {
                 .inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        (activity as AppCompatActivity).supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowHomeEnabled(true)
-            //TODO listener for popbackstack in toolbar
+        (activity as MainActivity).apply {
+            setUpNavigationVisibility(true)
+            setLogoVisibility(false)
         }
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,5 +62,11 @@ class NewPlantFragment : Fragment() {
         inputMethodManager.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
 
-
+    override fun onBackPressed(): Boolean {
+        (activity as MainActivity).apply {
+            setUpNavigationVisibility(false)
+            setLogoVisibility(true)
+        }
+        return false
+    }
 }

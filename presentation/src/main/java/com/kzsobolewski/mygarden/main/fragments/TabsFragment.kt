@@ -3,7 +3,6 @@ package com.kzsobolewski.mygarden.main.fragments
 
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -11,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.databinding.FragmentTabsBinding
+import com.kzsobolewski.mygarden.main.activities.MainActivity
 import com.kzsobolewski.mygarden.main.adapters.TabsPagerAdapter
 
 
@@ -27,6 +27,7 @@ class TabsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (activity as MainActivity).setSearchButtonVisibility(false)
         handleFabClick(view)
         initializeViewPagerAdapter()
         attachTabLayoutMediator()
@@ -37,33 +38,22 @@ class TabsFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar_menu, menu)
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val searchView = item.actionView as SearchView
-        searchView.apply {
-            queryHint = "Write plant name"
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return false
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    return false
-                }
-            })
+        return when (item.itemId) {
+            R.id.settings_option -> {
+                Navigation.findNavController(requireView())
+                    .navigate(R.id.action_tabsFragment_to_settingsFragment)
+                true
+            }
+            R.id.about_option -> {
+                Navigation.findNavController(requireView())
+                    .navigate(R.id.action_tabsFragment_to_aboutFragment)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-
-
-        when (item.itemId) {
-            R.id.settings_option -> Navigation.findNavController(requireView())
-                .navigate(R.id.action_tabsFragment_to_settingsFragment)
-
-            R.id.about_option -> Navigation.findNavController(requireView())
-                .navigate(R.id.action_tabsFragment_to_aboutFragment)
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun handleFabClick(view: View) {
@@ -94,8 +84,14 @@ class TabsFragment : Fragment() {
         override fun onPageSelected(position: Int) {
             super.onPageSelected(position)
             when (position) {
-                0 -> binding.newPlantFab.show()
-                else -> binding.newPlantFab.hide()
+                0 -> {
+                    binding.newPlantFab.show()
+                    (activity as MainActivity).setSearchButtonVisibility(false)
+                }
+                else -> {
+                    binding.newPlantFab.hide()
+                    (activity as MainActivity).setSearchButtonVisibility(true)
+                }
             }
         }
     }

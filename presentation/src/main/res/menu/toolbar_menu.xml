@@ -10,9 +10,8 @@
         android:title="About" />
     <item
         android:id="@+id/search_button"
+        android:icon="@drawable/ic_search_white_24dp"
         android:title="Search"
-        android:icon="@drawable/ic_launcher_foreground"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView"
-        />
+        app:showAsAction="ifRoom|collapseActionView" />
 </menu>

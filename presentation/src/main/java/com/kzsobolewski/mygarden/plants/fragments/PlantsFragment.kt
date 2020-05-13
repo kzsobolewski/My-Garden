@@ -10,14 +10,14 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.kzsobolewski.domain.models.Plant
 import com.kzsobolewski.mygarden.R
-import com.kzsobolewski.mygarden.plants.adapters.OnPlantListener
+import com.kzsobolewski.mygarden.plants.adapters.Clickable
 import com.kzsobolewski.mygarden.plants.adapters.PlantListAdapter
 import com.kzsobolewski.mygarden.plants.viewmodels.PlantsViewModel
 import kotlinx.android.synthetic.main.fragment_plants.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class PlantsFragment : Fragment(), OnPlantListener {
+class PlantsFragment : Fragment(), Clickable {
 
     val viewModel by viewModel<PlantsViewModel>()
     private var currentPlants: List<Plant> = listOf()
@@ -66,7 +66,7 @@ class PlantsFragment : Fragment(), OnPlantListener {
         }
     }
 
-    override fun onPlantClick(position: Int) {
+    override fun onItemClick(position: Int) {
         val bundle = bundleOf("key" to currentPlants[position])
         Navigation.findNavController(requireView())
             .navigate(R.id.action_tabsFragment_to_plantInfoFragment, bundle)

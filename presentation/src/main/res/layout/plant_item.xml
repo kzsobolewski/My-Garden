@@ -11,14 +11,11 @@
     </data>
 
 
-    <com.github.florent37.shapeofview.shapes.RoundRectView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:shape_roundRect_bottomLeftRadius="10dp"
-        app:shape_roundRect_bottomRightRadius="10dp"
-        app:shape_roundRect_topLeftRadius="10dp"
-        app:shape_roundRect_topRightRadius="10dp">
+        app:cardCornerRadius="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -71,5 +68,5 @@
                 tools:text="120" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.github.florent37.shapeofview.shapes.RoundRectView>
+    </androidx.cardview.widget.CardView>
 </layout>

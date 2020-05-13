@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.plant_item.view.*
 
 class PlantListAdapter(
-    private val onPlantListener: OnPlantListener,
+    private val clickable: Clickable,
     private var cachedPlants: List<Plant> = listOf<Plant>()
 ) :
     RecyclerView.Adapter<PlantListAdapter.ViewHolder>() {
@@ -29,7 +29,7 @@ class PlantListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(cachedPlants[position], onPlantListener)
+        holder.bind(cachedPlants[position], clickable)
         loadImageToView(holder, position)
     }
 
@@ -44,22 +44,22 @@ class PlantListAdapter(
     }
 
 
-    override fun getItemCount(): Int = cachedPlants.size
+    override fun getItemCount() = cachedPlants.size
 
     inner class ViewHolder(private val binding: PlantItemBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
-        private lateinit var onPlantListener: OnPlantListener
+        private lateinit var clickable: Clickable
 
-        fun bind(item: Plant, onPlantListener: OnPlantListener) {
+        fun bind(item: Plant, clickable: Clickable) {
             binding.item = item
             binding.executePendingBindings()
-            this.onPlantListener = onPlantListener
+            this.clickable = clickable
             itemView.setOnClickListener(this)
         }
 
         override fun onClick(p0: View?) {
-            onPlantListener.onPlantClick(adapterPosition)
+            clickable.onItemClick(adapterPosition)
         }
     }
 }

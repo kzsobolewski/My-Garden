@@ -8,7 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class FirebaseRepository : IDatabaseRepository, IFirebaseApi {
+class FirebaseRepository : IDatabaseRepository{
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         if (BuildConfig.BUILD_TYPE == "debug")

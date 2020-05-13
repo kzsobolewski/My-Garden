@@ -8,11 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.kzsobolewski.domain.models.Plant
 import com.kzsobolewski.mygarden.databinding.FragmentPlantInfoBinding
+import com.kzsobolewski.mygarden.main.activities.MainActivity
+import com.kzsobolewski.mygarden.main.fragments.INavigationFragment
 import com.kzsobolewski.mygarden.plants.viewmodels.PlantInfoViewModel
 import kotlinx.android.synthetic.main.fragment_plant_info.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class PlantInfoFragment : Fragment() {
+class PlantInfoFragment : Fragment(), INavigationFragment {
 
     val viewModel by viewModel<PlantInfoViewModel>()
 
@@ -35,6 +37,10 @@ class PlantInfoFragment : Fragment() {
                 .inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        (activity as MainActivity).apply {
+            setUpNavigationVisibility(true)
+            setLogoVisibility(false)
+        }
         return binding.root
     }
 
@@ -53,4 +59,13 @@ class PlantInfoFragment : Fragment() {
         info_description.text = plant?.description ?: ""
         info_hydration.text = plant?.hydration.toString()
     }
+
+    override fun onBackPressed(): Boolean {
+        (activity as MainActivity).apply {
+            setUpNavigationVisibility(false)
+            setLogoVisibility(true)
+        }
+        return false
+    }
+
 }
