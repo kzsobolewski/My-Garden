@@ -1,6 +1,7 @@
 package com.kzsobolewski.mygarden.search.viewmodels
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,7 +14,7 @@ class SearchViewModel(private val repository: ITrefleRepository) : ViewModel() {
 
     private val _plants = MutableLiveData<List<TreflePlant>>()
 
-    val plants: MutableLiveData<List<TreflePlant>> = _plants
+    val plants: LiveData<List<TreflePlant>> = _plants
 
     fun loadPlants(searchedPlant: String) {
         viewModelScope.launch {

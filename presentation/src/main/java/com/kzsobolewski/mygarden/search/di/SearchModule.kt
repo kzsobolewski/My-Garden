@@ -6,6 +6,6 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val searchModule = module {
-    single { SearchViewModel(get()) }
+    viewModel { SearchViewModel(get()) }
     viewModel { TreflePlantDetailedInfoViewModel(get()) }
 }

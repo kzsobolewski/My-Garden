@@ -27,34 +27,18 @@ class TabsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        (activity as MainActivity).setSearchButtonVisibility(false)
+        //(activity as MainActivity).setSearchButtonVisibility(false)
         handleFabClick(view)
         initializeViewPagerAdapter()
         attachTabLayoutMediator()
         listenForViewPagerCallbacks()
-        setHasOptionsMenu(true)
+        //setHasOptionsMenu(true)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.settings_option -> {
-                Navigation.findNavController(requireView())
-                    .navigate(R.id.action_tabsFragment_to_settingsFragment)
-                true
-            }
-            R.id.about_option -> {
-                Navigation.findNavController(requireView())
-                    .navigate(R.id.action_tabsFragment_to_aboutFragment)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
+    }*/
 
     private fun handleFabClick(view: View) {
         binding.newPlantFab.setOnClickListener {
@@ -86,11 +70,11 @@ class TabsFragment : Fragment() {
             when (position) {
                 0 -> {
                     binding.newPlantFab.show()
-                    (activity as MainActivity).setSearchButtonVisibility(false)
+                   // (activity as MainActivity).setSearchButtonVisibility(false)
                 }
                 else -> {
                     binding.newPlantFab.hide()
-                    (activity as MainActivity).setSearchButtonVisibility(true)
+                    //(activity as MainActivity).setSearchButtonVisibility(true)
                 }
             }
         }

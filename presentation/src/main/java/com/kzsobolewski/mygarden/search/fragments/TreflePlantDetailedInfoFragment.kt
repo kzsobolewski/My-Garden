@@ -21,6 +21,7 @@ class TreflePlantDetailedInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        //todo podpiac databinding
         return inflater.inflate(R.layout.fragment_trefle_plant_detailed_info, container, false)
     }
 

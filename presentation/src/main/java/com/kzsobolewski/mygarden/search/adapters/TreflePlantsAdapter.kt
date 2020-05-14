@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kzsobolewski.domain.models.TreflePlant
 import com.kzsobolewski.mygarden.databinding.TrefleItemBinding
-import com.kzsobolewski.mygarden.plants.adapters.Clickable
+import com.kzsobolewski.mygarden.plants.adapters.OnItemClickListener
 
 class TreflePlantsAdapter(
-    private var clickable: Clickable,
+    private var clickable: OnItemClickListener<TreflePlant>,
     private var cachedPlants: List<TreflePlant> = listOf()
 ) :
     RecyclerView.Adapter<TreflePlantsAdapter.ViewHolder>() {
@@ -34,9 +34,9 @@ class TreflePlantsAdapter(
     inner class ViewHolder(private val binding: TrefleItemBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
-        private lateinit var clickable: Clickable
+        private lateinit var clickable: OnItemClickListener<TreflePlant>
 
-        fun bind(item: TreflePlant, clickable: Clickable) {
+        fun bind(item: TreflePlant, clickable: OnItemClickListener<TreflePlant>) {
             binding.item = item
             binding.executePendingBindings()
             this.clickable = clickable
@@ -44,7 +44,7 @@ class TreflePlantsAdapter(
         }
 
         override fun onClick(p0: View?) {
-            clickable.onItemClick(adapterPosition)
+            clickable.onItemClick(cachedPlants[adapterPosition])
         }
     }
 }

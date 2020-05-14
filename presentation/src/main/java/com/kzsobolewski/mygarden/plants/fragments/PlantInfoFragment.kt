@@ -37,6 +37,7 @@ class PlantInfoFragment : Fragment(), INavigationFragment {
                 .inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        //to nam sie powtarza kilka razy w dokladnie takiej samej postaci - to moze gdzies to wydzielic?
         (activity as MainActivity).apply {
             setUpNavigationVisibility(true)
             setLogoVisibility(false)
@@ -61,11 +62,11 @@ class PlantInfoFragment : Fragment(), INavigationFragment {
     }
 
     override fun onBackPressed(): Boolean {
+        //to nam sie powtarza kilka razy w dokladnie takiej samej postaci - to moze gdzies to wydzielic?
         (activity as MainActivity).apply {
             setUpNavigationVisibility(false)
             setLogoVisibility(true)
         }
         return false
     }
-
 }

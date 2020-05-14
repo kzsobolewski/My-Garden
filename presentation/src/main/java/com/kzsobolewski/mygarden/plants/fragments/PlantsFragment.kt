@@ -1,26 +1,25 @@
 package com.kzsobolewski.mygarden.plants.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.kzsobolewski.domain.models.Plant
 import com.kzsobolewski.mygarden.R
-import com.kzsobolewski.mygarden.plants.adapters.Clickable
+import com.kzsobolewski.mygarden.plants.adapters.OnItemClickListener
 import com.kzsobolewski.mygarden.plants.adapters.PlantListAdapter
 import com.kzsobolewski.mygarden.plants.viewmodels.PlantsViewModel
 import kotlinx.android.synthetic.main.fragment_plants.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class PlantsFragment : Fragment(), Clickable {
+class PlantsFragment : Fragment(), OnItemClickListener<Plant> {
 
     val viewModel by viewModel<PlantsViewModel>()
-    private var currentPlants: List<Plant> = listOf()
+    // nie powinnismy trzymac tej listy we fragmencie
+    //private var currentPlants: List<Plant> = listOf()
 
     companion object {
         fun newInstance(): PlantsFragment {
@@ -43,8 +42,13 @@ class PlantsFragment : Fragment(), Clickable {
         viewModel.loadPlants { }
         loadPlantsToRecyclerView()
         handleSwipeRefresh()
+        setHasOptionsMenu(true)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.toolbar_menu, menu)
+    }
 
     private fun loadPlantsToRecyclerView() {
         val adapter = PlantListAdapter(this)
@@ -52,7 +56,7 @@ class PlantsFragment : Fragment(), Clickable {
         viewModel.plants.observe(viewLifecycleOwner, Observer { plants ->
             plants?.let {
                 adapter.setPlants(it)
-                currentPlants = it
+                //currentPlants = it
             }
         })
     }
@@ -66,8 +70,9 @@ class PlantsFragment : Fragment(), Clickable {
         }
     }
 
-    override fun onItemClick(position: Int) {
-        val bundle = bundleOf("key" to currentPlants[position])
+    // ten callback moze od razu dostawac obiekt plant, a nie tylko pozycję
+    override fun onItemClick(item: Plant) {
+        val bundle = bundleOf("key" to item)
         Navigation.findNavController(requireView())
             .navigate(R.id.action_tabsFragment_to_plantInfoFragment, bundle)
     }
