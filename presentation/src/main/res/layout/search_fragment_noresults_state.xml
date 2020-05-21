@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No Results"
+            android:text="@string/empty_recycler_no_results"
             android:textSize="32sp" />
 
     </LinearLayout>

@@ -69,7 +69,7 @@ class SearchFragment : Fragment(), OnItemClickListener<TreflePlant> {
         }
         val searchView = item.actionView as? SearchView
         searchView?.apply {
-            queryHint = "Write plant name"
+            queryHint = getString(R.string.write_plant_name)
             setOnQueryTextListener(searchViewListener)
         }
     }

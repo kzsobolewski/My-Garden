@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,67 +10,82 @@
             type="com.kzsobolewski.mygarden.plants.viewmodels.NewPlantViewModel" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         tools:context=".plants.fragments.NewPlantFragment">
 
-        <ImageView
+        <com.github.florent37.shapeofview.shapes.CircleView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_camera" />
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_margin="64dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shape_circle_borderColor="@color/colorAccent"
+            app:shape_circle_borderWidth="4dp">
+
+            <ImageView
+                android:contentDescription="@string/add_plant_photo"
+                android:layout_width="97dp"
+                android:layout_height="93dp"
+                android:padding="16dp"
+                android:src="@drawable/ic_add_a_photo_black_24dp" />
+        </com.github.florent37.shapeofview.shapes.CircleView>
 
         <EditText
             android:id="@+id/plant_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
             android:layout_weight="1"
-            android:inputType="text"
             android:ems="10"
-            android:hint="Name"
-            android:text="@={viewModel.name}" />
+            android:hint="@string/new_plant_name"
+            android:inputType="text"
+            android:text="@={viewModel.name}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView" />
 
         <EditText
             android:id="@+id/plant_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
-            android:layout_weight="1"
             android:ems="10"
             android:gravity="start|top"
-            android:hint="Description"
+            android:hint="@string/new_plant_description"
             android:inputType="textMultiLine"
-            android:text="@={viewModel.description}" />
+            android:text="@={viewModel.description}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/plant_name" />
 
-        <TextView
-            android:id="@+id/hydration_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hydration" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/hydration_text_view"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="Hydration" />-->
 
-        <SeekBar
-            android:id="@+id/plant_hydration_seekBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
-            android:layout_weight="1"
-            android:progress="@={viewModel.hydration}" />
+        <!--        <SeekBar-->
+        <!--            android:id="@+id/plant_hydration_seekBar"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_margin="@dimen/default_margin"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:progress="@={viewModel.hydration}" />-->
 
         <Button
             android:id="@+id/add_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
-            android:layout_weight="1"
+            android:layout_margin="24dp"
             android:onClick="@{v-> viewModel.addNewPlantToFirebase()}"
-            android:text="ADD" />
+            android:text="@string/new_plant_add_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

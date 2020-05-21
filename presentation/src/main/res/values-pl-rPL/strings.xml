@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Garden</string>
+    <string name="app_logo">App Logo</string>
+    <string name="plants_tab">ROŚLINKI</string>
+    <string name="search_tab">SZUKAJ</string>
+    <string name="search">Szukaj w Trefle.io</string>
+    <string name="add_plant_photo">Dodaj zdjęcie roślinki</string>
+    <string name="info_icon">Trefle Info</string>
+    <string name="thumbnail">Zdjęcie roślinki</string>
+    <string name="new_plant_name">Nazwa</string>
+    <string name="new_plant_description">Opis</string>
+    <string name="new_plant_add_button">DODAJ</string>
+    <string name="trefle_common_name">Nazwa zwyczajowa:  </string>
+    <string name="trefle_scientific_name">Nazwa naukowa:  </string>
+    <string name="trefle_genus">Rodzaj:  </string>
+    <string name="trefle_division">Division:  </string>
+    <string name="trefle_family">Rodzina:  </string>
+    <string name="save_button">ZAPISZ</string>
+    <string name="empty_recycler_trefle_info">Szukaj roślin w Trefle.io</string>
+    <string name="empty_recycler_no_results">Brak wyników</string>
+    <string name="settings">Ustawienia</string>
+    <string name="about">O Aplikacji</string>
+    <string name="delete_button">Usuń</string>
+    <string name="search_view">Szukaj</string>
+    <string name="create_new_plant">Stwórz roślnkę</string>
+    <string name="write_plant_name">Wpisz nazwę rośliny</string>
+</resources>

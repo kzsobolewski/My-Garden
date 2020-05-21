@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.viewpager2.widget.ViewPager2
@@ -14,7 +13,6 @@ import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.databinding.FragmentTabsBinding
 import com.kzsobolewski.mygarden.main.adapters.TabsPagerAdapter
 import com.kzsobolewski.mygarden.main.viewmodels.TabsViewModel
-import com.kzsobolewski.mygarden.search.viewmodels.TreflePlantDetailedInfoViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 

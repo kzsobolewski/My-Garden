@@ -41,7 +41,7 @@ class NewPlantFragment : Fragment(), INavigationFragment {
                 .inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        (activity as MainActivity).setToolbarForSideScreen("Create new Plant")
+        (activity as MainActivity).setToolbarForSideScreen(getString(R.string.create_new_plant))
         return binding.root
     }
 

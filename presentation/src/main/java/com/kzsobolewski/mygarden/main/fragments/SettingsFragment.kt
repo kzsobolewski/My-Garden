@@ -17,7 +17,7 @@ class SettingsFragment : Fragment(), INavigationFragment {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as MainActivity).setToolbarForSideScreen("Settings")
+        (activity as MainActivity).setToolbarForSideScreen(getString(R.string.settings))
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 }

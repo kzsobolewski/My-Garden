@@ -17,7 +17,7 @@ class AboutFragment : Fragment(), INavigationFragment {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as MainActivity).setToolbarForSideScreen("About")
+        (activity as MainActivity).setToolbarForSideScreen(getString(R.string.about))
         return inflater.inflate(R.layout.fragment_about, container, false)
     }
 

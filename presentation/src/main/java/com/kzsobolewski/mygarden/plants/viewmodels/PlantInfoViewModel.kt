@@ -11,7 +11,8 @@ class PlantInfoViewModel(private val repository: IDatabaseRepository) : ViewMode
 
     var currentPlant: Plant? = null
     val isFromTrefle = MutableLiveData<Boolean>(false)
-    val plantName = currentPlant?.name
+
+    fun getPlantName() = currentPlant!!.name
 
     fun loadPlant(plant: Plant) {
         currentPlant = plant

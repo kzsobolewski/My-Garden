@@ -13,7 +13,6 @@ class NewPlantViewModel(private val repository: IDatabaseRepository) : ViewModel
 
     val name = MutableLiveData<String>()
     val description = MutableLiveData<String>()
-    val hydration = MutableLiveData<Int>()
     var trefleDetails: TrefleDetailedPlant? = null
 
     val isPlantSaved = MutableLiveData<Boolean>(false)
@@ -35,7 +34,6 @@ class NewPlantViewModel(private val repository: IDatabaseRepository) : ViewModel
         return Plant(
             name = name.value ?: "",
             description = description.value ?: "",
-            hydration = hydration.value ?: 0,
             trefle_plant = trefleDetails
         )
     }

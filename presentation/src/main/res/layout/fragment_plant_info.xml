@@ -17,12 +17,12 @@
         tools:context=".plants.fragments.PlantInfoFragment">
 
         <TextView
-            android:textAlignment="center"
-            android:textColor="@color/textColorDark"
             android:id="@+id/info_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{viewModel.currentPlant.name}"
+            android:textAlignment="center"
+            android:textColor="@color/textColorDark"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,10 +30,10 @@
             tools:text="Name" />
 
         <TextView
-            android:layout_marginTop="18dp"
             android:id="@+id/info_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
             android:text="@{viewModel.currentPlant.description}"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,16 +41,16 @@
             app:layout_constraintTop_toBottomOf="@+id/info_name"
             tools:text="desription" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/info_hydration"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@{String.valueOf(viewModel.currentPlant.hydration)}"-->
-<!--            android:textSize="44sp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/info_description"-->
-<!--            tools:text="hydration" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/info_hydration"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@{String.valueOf(viewModel.currentPlant.hydration)}"-->
+        <!--            android:textSize="44sp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/info_description"-->
+        <!--            tools:text="hydration" />-->
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -64,10 +64,10 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                isVisible="@{viewModel.isFromTrefle}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                isVisible="@{viewModel.isFromTrefle}"
                 android:background="@color/gray"
                 android:padding="16dp">
 
@@ -75,6 +75,7 @@
                     android:id="@+id/info_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/info_icon"
                     android:src="@drawable/ic_info_outline_white_24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +84,7 @@
                 <TextView
                     android:id="@+id/info_common_name"
                     style="@style/TextforTrefle"
-                    android:text="Common name:  "
+                    android:text="@string/trefle_common_name"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/info_image" />
 
@@ -103,7 +104,7 @@
                 <TextView
                     android:id="@+id/info_scientific_name"
                     style="@style/TextforTrefle"
-                    android:text="Scientific Name:  "
+                    android:text="@string/trefle_scientific_name"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/info_common_name" />
 
@@ -125,7 +126,7 @@
                 <TextView
                     android:id="@+id/info_genus"
                     style="@style/TextforTrefle"
-                    android:text="Genus:  "
+                    android:text="@string/trefle_genus"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/info_scientific_name" />
 
@@ -161,7 +162,7 @@
                 <TextView
                     android:id="@+id/info_family"
                     style="@style/TextforTrefle"
-                    android:text="Family:  "
+                    android:text="@string/trefle_family"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/info_division" />
 

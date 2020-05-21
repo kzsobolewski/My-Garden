@@ -48,6 +48,7 @@
                 android:padding="16dp">
 
                 <ImageView
+                    android:contentDescription="@string/info_icon"
                     android:id="@+id/info_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -59,7 +60,7 @@
                 <TextView
                     android:id="@+id/info_common_name"
                     style="@style/TextforTrefle"
-                    android:text="Common name:  "
+                    android:text="@string/trefle_common_name"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/info_image" />
 
@@ -79,7 +80,7 @@
                 <TextView
                     android:id="@+id/info_scientific_name"
                     style="@style/TextforTrefle"
-                    android:text="Scientific Name:  "
+                    android:text="@string/trefle_scientific_name"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/info_common_name" />
 
@@ -101,7 +102,7 @@
                 <TextView
                     android:id="@+id/info_genus"
                     style="@style/TextforTrefle"
-                    android:text="Genus:  "
+                    android:text="@string/trefle_genus"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/info_scientific_name" />
 
@@ -119,7 +120,7 @@
                 <TextView
                     android:id="@+id/info_division"
                     style="@style/TextforTrefle"
-                    android:text="Division:  "
+                    android:text="@string/trefle_division"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/info_genus" />
 
@@ -137,7 +138,7 @@
                 <TextView
                     android:id="@+id/info_family"
                     style="@style/TextforTrefle"
-                    android:text="Family:  "
+                    android:text="@string/trefle_family"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/info_division" />
 
@@ -159,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="24dp"
             android:onClick="@{(v) -> viewModel.createNewPlant(v)}"
-            android:text="Save"
+            android:text="@string/save_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

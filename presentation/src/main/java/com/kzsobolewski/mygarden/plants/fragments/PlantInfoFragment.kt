@@ -42,7 +42,7 @@ class PlantInfoFragment : Fragment(), INavigationFragment {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.loadPlant(arguments?.getParcelable("key")!!)
-        (activity as MainActivity).setToolbarForSideScreen(viewModel.plantName)
+        (activity as MainActivity).setToolbarForSideScreen(viewModel.getPlantName())
         setHasOptionsMenu(true)
     }
 
