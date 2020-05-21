@@ -83,6 +83,7 @@
             android:layout_margin="24dp"
             android:onClick="@{v-> viewModel.addNewPlantToFirebase()}"
             android:text="@string/new_plant_add_button"
+            android:enabled="@{!viewModel.name.empty}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

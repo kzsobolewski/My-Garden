@@ -17,19 +17,22 @@ class SearchViewModel(private val repository: ITrefleRepository) : ViewModel() {
     val isEmpty = MutableLiveData<Boolean>(true)
     val isNoResults = MutableLiveData<Boolean>(false)
 
+    val viewState = MutableLiveData<SearchViewState>(SearchViewState.Empty)
+
     val plants: LiveData<List<TreflePlant>> = _plants
 
     // TODO come up with better way to handle recyclerview states
     fun loadPlants(searchedPlant: String?) {
-        isNoResults.value = false
-        if (searchedPlant != null)
+        //isNoResults.value = false
+        if (searchedPlant != null) {
             viewModelScope.launch {
-                isLoading.value = true
+                //isLoading.value = true
                 try {
                     when {
                         searchedPlant.isEmpty() -> {
                             _plants.postValue(listOf())
-                            isEmpty.value = true
+                            viewState.postValue(SearchViewState.Empty)
+                            //isEmpty.value = true
                         }
                         searchedPlant.length > 2 -> {
                             requestPlants(searchedPlant)
@@ -37,20 +40,25 @@ class SearchViewModel(private val repository: ITrefleRepository) : ViewModel() {
                     }
                 } catch (e: Exception) {
                     Log.e(PlantsViewModel::class.simpleName, e.localizedMessage, e)
+                    viewState.postValue(SearchViewState.Error)
                 }
-                isLoading.value = false
+                //isLoading.value = false
             }
+        }
     }
 
     private suspend fun requestPlants(searchedPlant: String) {
-        isEmpty.value = false
+        //isEmpty.value = false
+        viewState.postValue(SearchViewState.Loading)
         val data = repository.getPlants(searchedPlant)
         if (data.isNullOrEmpty()) {
-            isNoResults.value = true
+            // isNoResults.value = true
+            viewState.postValue(SearchViewState.NoResults)
             _plants.postValue(listOf())
         } else {
             _plants.postValue(data)
-            isNoResults.value = false
+            //isNoResults.value = false
+            viewState.postValue(SearchViewState.Content)
         }
     }
 }

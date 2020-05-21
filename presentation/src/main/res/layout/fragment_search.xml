@@ -10,6 +10,7 @@
             type="com.kzsobolewski.mygarden.search.viewmodels.SearchViewModel" />
 
         <import type="android.view.View" />
+        <import type="com.kzsobolewski.mygarden.search.viewmodels.SearchViewState"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,12 +44,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="6dp"
-                app:isVisible="@{viewModel.isLoading}" />
+                app:isVisible="@{viewModel.viewState == SearchViewState.Loading}" />
         </androidx.cardview.widget.CardView>
 
         <include
             layout="@layout/search_fragment_init_state"
-            app:hideLayout="@{viewModel.isEmpty}"
+            app:isVisible="@{viewModel.viewState == SearchViewState.Empty}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +57,7 @@
 
         <include
             layout="@layout/search_fragment_noresults_state"
-            app:hideLayout="@{viewModel.isNoResults}"
+            app:isVisible="@{viewModel.viewState == SearchViewState.NoResults}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

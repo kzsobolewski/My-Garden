@@ -3,6 +3,7 @@ package com.kzsobolewski.mygarden.search.fragments
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -14,6 +15,7 @@ import com.kzsobolewski.mygarden.databinding.FragmentSearchBinding
 import com.kzsobolewski.mygarden.plants.adapters.OnItemClickListener
 import com.kzsobolewski.mygarden.search.adapters.TreflePlantsAdapter
 import com.kzsobolewski.mygarden.search.viewmodels.SearchViewModel
+import com.kzsobolewski.mygarden.search.viewmodels.SearchViewState
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.search_fragment_init_state.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -52,6 +54,16 @@ class SearchFragment : Fragment(), OnItemClickListener<TreflePlant> {
         viewModel.plants.observe(viewLifecycleOwner, Observer {
             adapter.setPlants(it)
         })
+
+        viewModel.viewState.observe(viewLifecycleOwner, Observer {
+            when(it){
+                SearchViewState.Error -> {
+                    Toast.makeText(requireContext(), "error!", Toast.LENGTH_LONG).show()
+                }
+                else -> Unit
+            }
+        })
+
         trefle_plants_recycler.adapter = adapter
         setHasOptionsMenu(true)
     }

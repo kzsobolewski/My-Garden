@@ -19,7 +19,7 @@
     </style>
 
     <style name="CustomButton" parent="Widget.AppCompat.Button">
-        <item name="android:background">@drawable/custom_button</item>
+        <item name="android:background">@drawable/tmp_button_background</item>
         <item name="android:textColor">@color/textColorLight</item>
     </style>
 

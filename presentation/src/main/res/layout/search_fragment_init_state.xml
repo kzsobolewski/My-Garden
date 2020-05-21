@@ -4,7 +4,7 @@
     <data>
 
         <variable
-            name="hideLayout"
+            name="isVisible"
             type="Boolean" />
 
         <import type="android.view.View" />
@@ -16,7 +16,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="16dp"
-        app:isVisible="@{hideLayout}">
+        app:isVisible="@{isVisible}">
 
         <TextView
             android:layout_width="wrap_content"

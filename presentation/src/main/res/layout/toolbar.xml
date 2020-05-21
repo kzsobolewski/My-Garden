@@ -29,7 +29,7 @@
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/mygarden_logo"
+            android:src="@drawable/sample_logo"
             android:tint="@color/design_default_color_on_secondary"
             android:visibility="@{isImageVisible ? View.VISIBLE : View.GONE}" />
     </androidx.appcompat.widget.Toolbar>
