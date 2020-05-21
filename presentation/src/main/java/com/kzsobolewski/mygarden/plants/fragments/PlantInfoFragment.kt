@@ -1,22 +1,21 @@
 package com.kzsobolewski.mygarden.plants.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import com.kzsobolewski.domain.models.Plant
+import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.databinding.FragmentPlantInfoBinding
 import com.kzsobolewski.mygarden.main.activities.MainActivity
 import com.kzsobolewski.mygarden.main.fragments.INavigationFragment
 import com.kzsobolewski.mygarden.plants.viewmodels.PlantInfoViewModel
-import kotlinx.android.synthetic.main.fragment_plant_info.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class PlantInfoFragment : Fragment(), INavigationFragment {
 
     val viewModel by viewModel<PlantInfoViewModel>()
+    override val mainActivity: MainActivity
+        get() = activity as MainActivity
 
     companion object {
         fun newInstance(): PlantInfoFragment {
@@ -37,35 +36,31 @@ class PlantInfoFragment : Fragment(), INavigationFragment {
                 .inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        (activity as MainActivity).apply {
-            setUpNavigationVisibility(true)
-            setLogoVisibility(false)
-        }
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val plant = arguments?.getParcelable<Plant>("key")
-
-        delete_plant_button.setOnClickListener {
-            if (plant?.id != null) {
-                viewModel.deletePlant(plant.id)
-                Navigation.findNavController(requireView()).popBackStack()
-            }
-        }
-
-        info_name.text = plant?.name ?: ""
-        info_description.text = plant?.description ?: ""
-        info_hydration.text = plant?.hydration.toString()
+        viewModel.loadPlant(arguments?.getParcelable("key")!!)
+        (activity as MainActivity).setToolbarForSideScreen(viewModel.plantName)
+        setHasOptionsMenu(true)
     }
 
-    override fun onBackPressed(): Boolean {
-        (activity as MainActivity).apply {
-            setUpNavigationVisibility(false)
-            setLogoVisibility(true)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.toolbar_menu_plants_info, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.toolbar_delete_button -> {
+                viewModel.deleteCurrentPlant()
+                Navigation.findNavController(requireView()).popBackStack()
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return false
     }
 
 }

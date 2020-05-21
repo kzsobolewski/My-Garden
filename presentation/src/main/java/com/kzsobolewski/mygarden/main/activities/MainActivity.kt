@@ -1,25 +1,24 @@
 package com.kzsobolewski.mygarden.main.activities
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.menu.ActionMenuItemView
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.databinding.ActivityMainBinding
 import com.kzsobolewski.mygarden.main.fragments.INavigationFragment
-import com.kzsobolewski.mygarden.search.viewmodels.SearchViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
+    //TODO
+    // use case
+    // polish language
+    // dark theme
+
     private lateinit var binding: ActivityMainBinding
-    private val searchViewModel by viewModel<SearchViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,14 +26,23 @@ class MainActivity : AppCompatActivity() {
         binding.isToolbarImageVisible = true
         setSupportActionBar(main_toolbar as Toolbar)
         supportActionBar?.apply {
-            setDisplayShowTitleEnabled(false)
+            setDisplayShowTitleEnabled(true)
         }
     }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        handleSearchView(item)
         return when (item.itemId) {
+            R.id.settings_option -> {
+                Navigation.findNavController(this, R.id.nav_host_fragment)
+                    .navigate(R.id.action_tabsFragment_to_settingsFragment)
+                true
+            }
+            R.id.about_option -> {
+                Navigation.findNavController(this, R.id.nav_host_fragment)
+                    .navigate(R.id.action_tabsFragment_to_aboutFragment)
+                true
+            }
             android.R.id.home -> {
                 onBackPressed()
                 true
@@ -44,31 +52,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun handleSearchView(item: MenuItem) {
-        val searchView = item.actionView as? SearchView
-        searchView?.apply {
-            queryHint = "Write plant name"
-            setOnQueryTextListener(searchViewListener)
-        }
-    }
-
-    private val searchViewListener = object : SearchView.OnQueryTextListener {
-
-        override fun onQueryTextSubmit(query: String?): Boolean {
-            Log.d("search this", query)
-            if (query != null)
-                searchViewModel.loadPlants(query)
-            return false
-        }
-
-        override fun onQueryTextChange(newText: String?): Boolean {
-            Log.d("search this", newText)
-            if (newText != null && newText.length >= 3)
-                searchViewModel.loadPlants(newText)
-            return false
-        }
-    }
 
     override fun onBackPressed() {
         val handled =
@@ -91,9 +74,9 @@ class MainActivity : AppCompatActivity() {
         binding.isToolbarImageVisible = value
     }
 
-
-    fun setSearchButtonVisibility(value: Boolean) {
-        findViewById<ActionMenuItemView>(R.id.search_button)?.visibility =
-            if (value) View.VISIBLE else View.GONE
+    fun setToolbarForSideScreen(title: String?) {
+        setUpNavigationVisibility(true)
+        setLogoVisibility(false)
+        this.title = title ?: ""
     }
 }

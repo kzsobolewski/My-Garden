@@ -11,14 +11,14 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.plant_item.view.*
 
 class PlantListAdapter(
-    private val clickable: Clickable,
-    private var cachedPlants: List<Plant> = listOf<Plant>()
+    private val onItemClick: OnItemClickListener<Plant>,
+    private var cachedPlants: List<Plant> = listOf()
 ) :
     RecyclerView.Adapter<PlantListAdapter.ViewHolder>() {
 
 
-    internal fun setPlants(plants: List<Plant>) {
-        cachedPlants = plants
+    internal fun setPlants(plants: List<Plant>?) {
+        cachedPlants = plants ?: listOf()
         notifyDataSetChanged()
     }
 
@@ -29,7 +29,7 @@ class PlantListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(cachedPlants[position], clickable)
+        holder.bind(cachedPlants[position], onItemClick)
         loadImageToView(holder, position)
     }
 
@@ -37,8 +37,8 @@ class PlantListAdapter(
         Picasso.get().apply {
             isLoggingEnabled = true
             load(cachedPlants[position].thumbnail)
-                .placeholder(R.drawable.sample_logo)
-                .error(R.drawable.ic_launcher_background)
+                .placeholder(R.drawable.ic_image_black_24dp)
+                .error(R.drawable.ic_error_black_24dp)
                 .into(holder.itemView.plant_image)
         }
     }
@@ -49,17 +49,17 @@ class PlantListAdapter(
     inner class ViewHolder(private val binding: PlantItemBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
-        private lateinit var clickable: Clickable
+        private lateinit var onItemClick: OnItemClickListener<Plant>
 
-        fun bind(item: Plant, clickable: Clickable) {
+        fun bind(item: Plant, onItemClickListener: OnItemClickListener<Plant>) {
             binding.item = item
             binding.executePendingBindings()
-            this.clickable = clickable
+            this.onItemClick = onItemClickListener
             itemView.setOnClickListener(this)
         }
 
         override fun onClick(p0: View?) {
-            clickable.onItemClick(adapterPosition)
+            onItemClick.onItemClick(cachedPlants[adapterPosition])
         }
     }
 }

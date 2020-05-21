@@ -6,16 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kzsobolewski.domain.models.TreflePlant
 import com.kzsobolewski.mygarden.databinding.TrefleItemBinding
-import com.kzsobolewski.mygarden.plants.adapters.Clickable
+import com.kzsobolewski.mygarden.plants.adapters.OnItemClickListener
 
 class TreflePlantsAdapter(
-    private var clickable: Clickable,
+    private var onItemClick: OnItemClickListener<TreflePlant>,
     private var cachedPlants: List<TreflePlant> = listOf()
 ) :
     RecyclerView.Adapter<TreflePlantsAdapter.ViewHolder>() {
 
-    internal fun setPlants(items: List<TreflePlant>) {
-        cachedPlants = items
+    internal fun setPlants(items: List<TreflePlant>?) {
+        cachedPlants = items ?: listOf()
         notifyDataSetChanged()
     }
 
@@ -26,25 +26,26 @@ class TreflePlantsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(cachedPlants[position], clickable)
+        holder.bind(cachedPlants[position], onItemClick)
     }
 
     override fun getItemCount() = cachedPlants.size
 
+
     inner class ViewHolder(private val binding: TrefleItemBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
-        private lateinit var clickable: Clickable
+        private lateinit var onItemClick: OnItemClickListener<TreflePlant>
 
-        fun bind(item: TreflePlant, clickable: Clickable) {
+        fun bind(item: TreflePlant, onItemClickListener: OnItemClickListener<TreflePlant>) {
             binding.item = item
             binding.executePendingBindings()
-            this.clickable = clickable
+            this.onItemClick = onItemClickListener
             itemView.setOnClickListener(this)
         }
 
         override fun onClick(p0: View?) {
-            clickable.onItemClick(adapterPosition)
+            onItemClick.onItemClick(cachedPlants[adapterPosition])
         }
     }
 }

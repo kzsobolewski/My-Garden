@@ -10,7 +10,7 @@
         android:title="About" />
     <item
         android:id="@+id/search_button"
-        android:icon="@drawable/ic_search_white_24dp"
+        android:icon="@drawable/ic_search_black_24dp"
         android:title="Search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />

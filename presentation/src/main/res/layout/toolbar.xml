@@ -15,21 +15,22 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimaryDark"
+        android:background="@drawable/toolbar_gradient"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@android:color/white">
+        app:titleTextColor="@color/textColorDark">
 
         <ImageView
             android:id="@+id/app_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="150dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/sample_logo"
+            android:src="@drawable/mygarden_logo"
+            android:tint="@color/design_default_color_on_secondary"
             android:visibility="@{isImageVisible ? View.VISIBLE : View.GONE}" />
     </androidx.appcompat.widget.Toolbar>
 </layout>

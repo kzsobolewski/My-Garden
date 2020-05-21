@@ -23,6 +23,15 @@ android {
     dataBinding {
         enabled = true
     }
+
+//potrzebne do view.isVisible
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
