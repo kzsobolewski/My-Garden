@@ -13,44 +13,31 @@ import kotlinx.coroutines.launch
 class SearchViewModel(private val repository: ITrefleRepository) : ViewModel() {
 
     private val _plants = MutableLiveData<List<TreflePlant>>()
-    val isLoading = MutableLiveData<Boolean>(false)
-    val isEmpty = MutableLiveData<Boolean>(true)
-    val isNoResults = MutableLiveData<Boolean>(false)
-
+    val viewState = MutableLiveData(SearchViewState.Init)
     val plants: LiveData<List<TreflePlant>> = _plants
 
-    // TODO come up with better way to handle recyclerview states
     fun loadPlants(searchedPlant: String?) {
-        isNoResults.value = false
-        if (searchedPlant != null)
+        if (searchedPlant != null && searchedPlant.length > 2) {
             viewModelScope.launch {
-                isLoading.value = true
                 try {
-                    when {
-                        searchedPlant.isEmpty() -> {
-                            _plants.postValue(listOf())
-                            isEmpty.value = true
-                        }
-                        searchedPlant.length > 2 -> {
-                            requestPlants(searchedPlant)
-                        }
-                    }
+                    requestPlants(searchedPlant)
                 } catch (e: Exception) {
                     Log.e(PlantsViewModel::class.simpleName, e.localizedMessage, e)
+                    viewState.postValue(SearchViewState.Error)
                 }
-                isLoading.value = false
             }
+        }
     }
 
     private suspend fun requestPlants(searchedPlant: String) {
-        isEmpty.value = false
+        viewState.postValue(SearchViewState.Loading)
         val data = repository.getPlants(searchedPlant)
         if (data.isNullOrEmpty()) {
-            isNoResults.value = true
             _plants.postValue(listOf())
+            viewState.postValue(SearchViewState.NoResults)
         } else {
             _plants.postValue(data)
-            isNoResults.value = false
+            viewState.postValue(SearchViewState.Content)
         }
     }
 }

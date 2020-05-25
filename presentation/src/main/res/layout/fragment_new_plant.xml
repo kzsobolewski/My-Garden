@@ -15,8 +15,9 @@
         android:layout_height="match_parent"
         tools:context=".plants.fragments.NewPlantFragment">
 
+
         <com.github.florent37.shapeofview.shapes.CircleView
-            android:id="@+id/imageView"
+            android:id="@+id/circle_thumbnail_view"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_margin="64dp"
@@ -27,11 +28,12 @@
             app:shape_circle_borderWidth="4dp">
 
             <ImageView
-                android:contentDescription="@string/add_plant_photo"
+                android:id="@+id/thumbnail_photo"
                 android:layout_width="97dp"
                 android:layout_height="93dp"
-                android:padding="16dp"
-                android:src="@drawable/ic_add_a_photo_black_24dp" />
+                android:src="@drawable/ic_add_a_photo_black_24dp"
+                android:contentDescription="@string/add_plant_photo"
+                android:padding="16dp" />
         </com.github.florent37.shapeofview.shapes.CircleView>
 
         <EditText
@@ -46,7 +48,7 @@
             android:text="@={viewModel.name}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView" />
+            app:layout_constraintTop_toBottomOf="@id/circle_thumbnail_view" />
 
         <EditText
             android:id="@+id/plant_description"

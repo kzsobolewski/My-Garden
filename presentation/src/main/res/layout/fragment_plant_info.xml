@@ -41,142 +41,18 @@
             app:layout_constraintTop_toBottomOf="@+id/info_name"
             tools:text="desription" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/info_hydration"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="@{String.valueOf(viewModel.currentPlant.hydration)}"-->
-        <!--            android:textSize="44sp"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/info_description"-->
-        <!--            tools:text="hydration" />-->
 
-        <androidx.cardview.widget.CardView
+        <include
+            android:id="@id/info"
+            layout="@layout/trefle_details_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@color/cardview_dark_background"
-            android:elevation="2dp"
-            app:cardCornerRadius="8dp"
+            app:isLayoutVisible="@{viewModel.isFromTrefle()}"
+            app:item="@{viewModel.currentPlant.trefle_plant}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                isVisible="@{viewModel.isFromTrefle}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:background="@color/gray"
-                android:padding="16dp">
-
-                <ImageView
-                    android:id="@+id/info_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/info_icon"
-                    android:src="@drawable/ic_info_outline_white_24dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/info_common_name"
-                    style="@style/TextforTrefle"
-                    android:text="@string/trefle_common_name"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/info_image" />
-
-                <TextView
-                    style="@style/TextforTrefle"
-                    android:maxWidth="200dp"
-                    android:text="@{viewModel.currentPlant.trefle_plant.common_name}"
-                    android:textAlignment="viewEnd"
-                    app:layout_constraintBottom_toBottomOf="@+id/info_common_name"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1"
-                    app:layout_constraintStart_toEndOf="@+id/info_common_name"
-                    app:layout_constraintTop_toTopOf="@+id/info_common_name"
-                    tools:text="value" />
-                <!-- __________________________________________________________________ -->
-
-                <TextView
-                    android:id="@+id/info_scientific_name"
-                    style="@style/TextforTrefle"
-                    android:text="@string/trefle_scientific_name"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/info_common_name" />
-
-                <TextView
-                    style="@style/TextforTrefle"
-                    android:maxWidth="200dp"
-                    android:text="@{viewModel.currentPlant.trefle_plant.scientific_name}"
-                    android:textAlignment="viewEnd"
-                    app:layout_constraintBottom_toBottomOf="@+id/info_scientific_name"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1"
-                    app:layout_constraintStart_toEndOf="@+id/info_scientific_name"
-                    app:layout_constraintTop_toTopOf="@+id/info_scientific_name"
-                    tools:text="value" />
-
-                <!-- __________________________________________________________________ -->
-
-
-                <TextView
-                    android:id="@+id/info_genus"
-                    style="@style/TextforTrefle"
-                    android:text="@string/trefle_genus"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/info_scientific_name" />
-
-                <TextView
-                    style="@style/TextforTrefle"
-                    android:text="@{viewModel.currentPlant.trefle_plant.genus.name}"
-                    app:layout_constraintBottom_toBottomOf="@+id/info_genus"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/info_genus"
-                    tools:text="value" />
-
-                <!-- __________________________________________________________________ -->
-
-
-                <TextView
-                    android:id="@+id/info_division"
-                    style="@style/TextforTrefle"
-                    android:text="Division:  "
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/info_genus" />
-
-                <TextView
-                    style="@style/TextforTrefle"
-                    android:text="@{viewModel.currentPlant.trefle_plant.division.name}"
-                    app:layout_constraintBottom_toBottomOf="@+id/info_division"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/info_division"
-                    tools:text="value" />
-
-                <!-- __________________________________________________________________ -->
-
-
-                <TextView
-                    android:id="@+id/info_family"
-                    style="@style/TextforTrefle"
-                    android:text="@string/trefle_family"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/info_division" />
-
-                <TextView
-                    style="@style/TextforTrefle"
-                    android:text="@{viewModel.currentPlant.trefle_plant.family_common_name}"
-                    app:layout_constraintBottom_toBottomOf="@+id/info_family"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/info_family"
-                    tools:text="value" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

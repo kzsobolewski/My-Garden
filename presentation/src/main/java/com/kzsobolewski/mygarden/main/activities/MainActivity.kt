@@ -14,9 +14,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     //TODO
-    // use case
-    // polish language
     // dark theme
+    // adding image
+    // anims
 
     private lateinit var binding: ActivityMainBinding
 

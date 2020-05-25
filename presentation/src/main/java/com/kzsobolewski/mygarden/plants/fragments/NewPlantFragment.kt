@@ -1,7 +1,10 @@
 package com.kzsobolewski.mygarden.plants.fragments
 
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,15 +17,21 @@ import com.kzsobolewski.mygarden.databinding.FragmentNewPlantBinding
 import com.kzsobolewski.mygarden.main.activities.MainActivity
 import com.kzsobolewski.mygarden.main.fragments.INavigationFragment
 import com.kzsobolewski.mygarden.plants.viewmodels.NewPlantViewModel
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
+import kotlinx.android.synthetic.main.fragment_new_plant.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class NewPlantFragment : Fragment(), INavigationFragment {
 
     val viewModel by viewModel<NewPlantViewModel>()
+
     override val mainActivity: MainActivity
         get() = activity as MainActivity
 
     companion object {
+        private val SELECT_PHOTO_CODE = 123
+
         fun newInstance(): NewPlantFragment {
             val args = Bundle()
             val fragment = NewPlantFragment()
@@ -58,7 +67,44 @@ class NewPlantFragment : Fragment(), INavigationFragment {
                 hideKeyboard()
             }
         })
+        circle_thumbnail_view.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            intent.type = "image/*"
+            startActivityForResult(intent, SELECT_PHOTO_CODE)
+        }
     }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            SELECT_PHOTO_CODE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    launchImageCrop(data?.data)
+                }
+            }
+            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    CropImage.getActivityResult(data).uri.let {
+                        thumbnail_photo.apply {
+                            setImageURI(it)
+                            setPadding(0, 0, 0, 0)
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    private fun launchImageCrop(uri: Uri?) {
+        CropImage.activity(uri)
+            .setGuidelines(CropImageView.Guidelines.ON)
+            .setAspectRatio(1, 1)
+            .start(requireContext(), this)
+    }
+
 
     private fun hideKeyboard() {
         val inputMethodManager =

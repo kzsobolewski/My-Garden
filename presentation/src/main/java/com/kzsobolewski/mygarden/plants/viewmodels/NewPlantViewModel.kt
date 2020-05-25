@@ -1,5 +1,7 @@
 package com.kzsobolewski.mygarden.plants.viewmodels
 
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -37,4 +39,5 @@ class NewPlantViewModel(private val repository: IDatabaseRepository) : ViewModel
             trefle_plant = trefleDetails
         )
     }
+
 }
