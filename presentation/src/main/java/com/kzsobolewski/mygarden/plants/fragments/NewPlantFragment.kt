@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import com.kzsobolewski.domain.models.TrefleDetailedPlant
 import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.databinding.FragmentNewPlantBinding
 import com.kzsobolewski.mygarden.main.activities.MainActivity
@@ -31,13 +32,6 @@ class NewPlantFragment : Fragment(), INavigationFragment {
 
     companion object {
         private val SELECT_PHOTO_CODE = 123
-
-        fun newInstance(): NewPlantFragment {
-            val args = Bundle()
-            val fragment = NewPlantFragment()
-            fragment.arguments = args
-            return fragment
-        }
     }
 
     override fun onCreateView(
@@ -57,8 +51,12 @@ class NewPlantFragment : Fragment(), INavigationFragment {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.trefleDetails = (arguments?.getParcelable("TREFLE_KEY"))
-        viewModel.fillTheName()
+        (arguments?.getParcelable<TrefleDetailedPlant>("TREFLE_KEY"))?.let {
+            viewModel.apply {
+                trefleDetails = it
+                fillTheName()
+            }
+        }
         viewModel.isPlantSaved.observe(viewLifecycleOwner, Observer { saved ->
             if (saved) {
                 Navigation.findNavController(view)
@@ -89,6 +87,7 @@ class NewPlantFragment : Fragment(), INavigationFragment {
                     CropImage.getActivityResult(data).uri.let {
                         thumbnail_photo.apply {
                             setImageURI(it)
+                            viewModel.uploadImageToFirebase(it)
                             setPadding(0, 0, 0, 0)
                         }
                     }
@@ -104,7 +103,6 @@ class NewPlantFragment : Fragment(), INavigationFragment {
             .setAspectRatio(1, 1)
             .start(requireContext(), this)
     }
-
 
     private fun hideKeyboard() {
         val inputMethodManager =

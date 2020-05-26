@@ -10,6 +10,7 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="titleTextColor">@color/textColorDark</item>
         <item name="buttonStyle">@style/CustomButton</item>
+        <item name="android:windowBackground">@drawable/background_gradient</item>
     </style>
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">

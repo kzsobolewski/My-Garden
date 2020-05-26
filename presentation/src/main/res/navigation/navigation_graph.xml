@@ -12,25 +12,36 @@
         <action
             android:id="@+id/action_tabsFragment_to_newPlantFragment"
             app:destination="@id/newPlantFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
             app:popUpTo="@id/tabsFragment" />
         <action
             android:id="@+id/action_tabsFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/wait"
+            app:popEnterAnim="@anim/wait"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_tabsFragment_to_plantInfoFragment"
-            app:destination="@id/plantInfoFragment" />
+            app:destination="@id/plantInfoFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
         <action
             android:id="@+id/action_tabsFragment_to_aboutFragment"
             app:destination="@id/aboutFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/wait"
+            app:popEnterAnim="@anim/wait"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_tabsFragment_to_treflePlantDetailedInfoFragment"
-            app:destination="@id/treflePlantDetailedInfoFragment" />
+            app:destination="@id/treflePlantDetailedInfoFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
     <fragment
         android:id="@+id/newPlantFragment"
@@ -39,7 +50,9 @@
         tools:layout="@layout/fragment_new_plant">
         <action
             android:id="@+id/action_newPlantFragment_to_tabsFragment"
-            app:destination="@id/tabsFragment" />
+            app:destination="@id/tabsFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_close_exit" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -62,7 +75,11 @@
         android:label="TreflePlantDetailedInfoFragment" >
         <action
             android:id="@+id/action_treflePlantDetailedInfoFragment_to_newPlantFragment"
-            app:destination="@id/newPlantFragment" />
+            app:destination="@id/newPlantFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
 </navigation>

@@ -3,6 +3,7 @@ package com.kzsobolewski.mygarden.plants.fragments
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.databinding.FragmentPlantInfoBinding
@@ -55,8 +56,12 @@ class PlantInfoFragment : Fragment(), INavigationFragment {
         return when (item.itemId) {
             R.id.toolbar_delete_button -> {
                 viewModel.deleteCurrentPlant()
-                Navigation.findNavController(requireView()).popBackStack()
-                onBackPressed()
+                viewModel.isDeleted.observe(viewLifecycleOwner, Observer {
+                    if (it) {
+                        Navigation.findNavController(requireView()).popBackStack()
+                        onBackPressed()
+                    }
+                })
                 true
             }
             else -> super.onOptionsItemSelected(item)

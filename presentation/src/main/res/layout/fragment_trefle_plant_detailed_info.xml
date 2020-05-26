@@ -34,6 +34,7 @@
             layout="@layout/trefle_details_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             app:isLayoutVisible="@{!viewModel.isLoading}"
             app:item="@{viewModel.plantDetails}"
             app:layout_constraintEnd_toEndOf="parent"
