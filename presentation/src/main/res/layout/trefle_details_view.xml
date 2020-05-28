@@ -62,31 +62,43 @@
             <TextView
                 android:id="@+id/info_scientific_name"
                 style="@style/TextforTrefle"
+                android:maxWidth="200dp"
                 android:text="@string/trefle_scientific_name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/info_common_name" />
+                app:layout_constraintTop_toBottomOf="@+id/info_common_name"/>
 
+            <!--
+            możemy się pobawić ellipsize, baseline
+            -->
             <TextView
+                android:id="@+id/info_scientific_content"
                 style="@style/TextforTrefle"
-                android:maxWidth="200dp"
+                android:layout_width="0dp"
                 android:text="@{item.scientific_name}"
                 android:textAlignment="viewEnd"
                 app:layout_constraintBottom_toBottomOf="@+id/info_scientific_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintBaseline_toBaselineOf="@id/info_scientific_name"
                 app:layout_constraintStart_toEndOf="@+id/info_scientific_name"
                 app:layout_constraintTop_toTopOf="@+id/info_scientific_name"
-                tools:text="value" />
+                tools:text="value " />
 
             <!-- __________________________________________________________________ -->
 
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/scientific_name_barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="info_scientific_name,info_scientific_content"/>
 
             <TextView
                 android:id="@+id/info_genus"
                 style="@style/TextforTrefle"
                 android:text="@string/trefle_genus"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/info_scientific_name" />
+                app:layout_constraintTop_toBottomOf="@id/scientific_name_barrier" />
 
             <TextView
                 style="@style/TextforTrefle"

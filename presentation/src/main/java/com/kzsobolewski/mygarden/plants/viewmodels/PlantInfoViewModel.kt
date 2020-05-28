@@ -24,6 +24,7 @@ class PlantInfoViewModel(private val repository: IDatabaseRepository) : ViewMode
 
     fun deleteCurrentPlant() {
         viewModelScope.launch {
+            //przyklad dla use case
             repository.deletePlant(currentPlant.id)
             try {
                 val ref =

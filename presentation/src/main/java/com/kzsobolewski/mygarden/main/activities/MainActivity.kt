@@ -10,6 +10,9 @@ import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.databinding.ActivityMainBinding
 import com.kzsobolewski.mygarden.main.fragments.INavigationFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     // dark theme
     // adding image
     // anims
+    private val activityContext = Job() + Dispatchers.Main
+    val activityScope = CoroutineScope(activityContext)
 
     private lateinit var binding: ActivityMainBinding
 

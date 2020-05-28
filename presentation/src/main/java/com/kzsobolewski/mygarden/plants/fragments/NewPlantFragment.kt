@@ -22,10 +22,11 @@ import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.fragment_new_plant.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class NewPlantFragment : Fragment(), INavigationFragment {
 
-    val viewModel by viewModel<NewPlantViewModel>()
+    val viewModel by viewModel<NewPlantViewModel> { parametersOf(mainActivity.activityScope) }
 
     override val mainActivity: MainActivity
         get() = activity as MainActivity
@@ -87,6 +88,7 @@ class NewPlantFragment : Fragment(), INavigationFragment {
                     CropImage.getActivityResult(data).uri.let {
                         thumbnail_photo.apply {
                             setImageURI(it)
+                            //nie chcemy tego robic jakos przy zapisywaniu roslinki
                             viewModel.uploadImageToFirebase(it)
                             setPadding(0, 0, 0, 0)
                         }

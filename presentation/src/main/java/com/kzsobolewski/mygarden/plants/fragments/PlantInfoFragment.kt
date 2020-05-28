@@ -1,5 +1,9 @@
 package com.kzsobolewski.mygarden.plants.fragments
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -25,6 +29,24 @@ class PlantInfoFragment : Fragment(), INavigationFragment {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    val myReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == Intent.ACTION_BATTERY_LOW){
+
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        context?.registerReceiver(myReceiver, IntentFilter(Intent.ACTION_BATTERY_LOW))
+    }
+
+    override fun onStop() {
+        super.onStop()
+        context?.unregisterReceiver(myReceiver)
     }
 
     override fun onCreateView(
@@ -56,6 +78,8 @@ class PlantInfoFragment : Fragment(), INavigationFragment {
         return when (item.itemId) {
             R.id.toolbar_delete_button -> {
                 viewModel.deleteCurrentPlant()
+                //live data chcemy obserwować zazwyczaj tylko raz np w onViewCreated
+                // tutaj może lepiej jednak zastosować callback?
                 viewModel.isDeleted.observe(viewLifecycleOwner, Observer {
                     if (it) {
                         Navigation.findNavController(requireView()).popBackStack()

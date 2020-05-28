@@ -43,14 +43,17 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/plant_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/item_plant_name_margin"
                 android:text="@{item.name}"
                 android:textSize="@dimen/item_plant_name_font"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/circle_thumbnail"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@color/design_default_color_secondary"
                 tools:text="Plant 1" />
