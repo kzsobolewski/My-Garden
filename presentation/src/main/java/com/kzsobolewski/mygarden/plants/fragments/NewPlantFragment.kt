@@ -27,7 +27,7 @@ class NewPlantFragment : Fragment(), INavigationFragment {
 
     val viewModel by viewModel<NewPlantViewModel>()
 
-    override val mainActivity: MainActivity
+    override val mainActivityForNavigation: MainActivity
         get() = activity as MainActivity
 
     companion object {
@@ -87,8 +87,7 @@ class NewPlantFragment : Fragment(), INavigationFragment {
                     CropImage.getActivityResult(data).uri.let {
                         thumbnail_photo.apply {
                             setImageURI(it)
-                            viewModel.uploadImageToFirebase(it)
-                            setPadding(0, 0, 0, 0)
+                            viewModel.imageUri = it
                         }
                     }
                 }

@@ -4,10 +4,10 @@ import com.kzsobolewski.mygarden.main.activities.MainActivity
 
 interface INavigationFragment {
 
-    val mainActivity: MainActivity
+    val mainActivityForNavigation: MainActivity
 
     fun onBackPressed(): Boolean{
-        mainActivity.apply {
+        mainActivityForNavigation.apply {
         setUpNavigationVisibility(false)
         setLogoVisibility(true)
         title = ""

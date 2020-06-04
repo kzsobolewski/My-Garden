@@ -6,6 +6,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.kzsobolewski.domain.models.Plant
 import com.kzsobolewski.mygarden.R
 import com.kzsobolewski.mygarden.plants.adapters.OnItemClickListener
@@ -17,7 +19,39 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class PlantsFragment : Fragment(), OnItemClickListener<Plant> {
 
-    val viewModel by viewModel<PlantsViewModel>()
+    private val viewModel by viewModel<PlantsViewModel>()
+    private val plantsAdapter = PlantListAdapter(this)
+
+    private val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+        ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0
+    ) {
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ) = true
+
+        override fun onMoved(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            fromPos: Int,
+            target: RecyclerView.ViewHolder,
+            toPos: Int,
+            x: Int,
+            y: Int
+        ) {
+            val newList = plantsAdapter.currentList.toMutableList()
+            val movedItem = newList[fromPos]
+            val targetItem = newList[toPos]
+            newList[fromPos] = targetItem
+            newList[toPos] = movedItem
+            plantsAdapter.submitList(newList)
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
+    }
+
 
     companion object {
         fun newInstance(): PlantsFragment {
@@ -50,11 +84,13 @@ class PlantsFragment : Fragment(), OnItemClickListener<Plant> {
 
 
     private fun loadPlantsToRecyclerView() {
-        val adapter = PlantListAdapter(this)
-        plants_recycler.adapter = adapter
         viewModel.plants.observe(viewLifecycleOwner, Observer { plants ->
+            plants_recycler.apply {
+                adapter = plantsAdapter
+                ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(this)
+            }
             plants?.let {
-                adapter.setPlants(it)
+                plantsAdapter.submitList(it)
             }
         })
     }
@@ -74,4 +110,6 @@ class PlantsFragment : Fragment(), OnItemClickListener<Plant> {
             .navigate(R.id.action_tabsFragment_to_plantInfoFragment, bundle)
     }
 }
+
+
 

@@ -1,14 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/textColorDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:navigationBarColor">@color/cardview_light_background</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="titleTextColor">@color/textColorDark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="titleTextColor">@color/textColorLight</item>
         <item name="buttonStyle">@style/CustomButton</item>
         <item name="android:windowBackground">@drawable/background_gradient</item>
     </style>

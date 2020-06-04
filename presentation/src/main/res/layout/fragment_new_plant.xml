@@ -8,9 +8,12 @@
         <variable
             name="viewModel"
             type="com.kzsobolewski.mygarden.plants.viewmodels.NewPlantViewModel" />
+
+        <import type="android.text.TextUtils" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_new_plant"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".plants.fragments.NewPlantFragment">
@@ -28,12 +31,19 @@
             app:shape_circle_borderWidth="4dp">
 
             <ImageView
+                android:layout_width="97dp"
+                android:layout_height="93dp"
+                android:contentDescription="@string/add_plant_photo"
+                android:padding="16dp"
+                android:src="@drawable/ic_add_a_photo_black_24dp"
+                android:tint="@color/iconTint" />
+
+            <ImageView
                 android:id="@+id/thumbnail_photo"
                 android:layout_width="97dp"
                 android:layout_height="93dp"
-                android:src="@drawable/ic_add_a_photo_black_24dp"
-                android:contentDescription="@string/add_plant_photo"
-                android:padding="16dp" />
+                android:contentDescription="@string/add_plant_photo" />
+
         </com.github.florent37.shapeofview.shapes.CircleView>
 
         <EditText
@@ -64,30 +74,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/plant_name" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/hydration_text_view"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="Hydration" />-->
-
-        <!--        <SeekBar-->
-        <!--            android:id="@+id/plant_hydration_seekBar"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_margin="@dimen/default_margin"-->
-        <!--            android:layout_weight="1"-->
-        <!--            android:progress="@={viewModel.hydration}" />-->
-
         <Button
             android:id="@+id/add_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="24dp"
-            android:onClick="@{v-> viewModel.addNewPlantToFirebase()}"
-            android:text="@string/new_plant_add_button"
+            android:enabled="@{!TextUtils.isEmpty(viewModel.name)}"
+            android:onClick="@{v-> viewModel.addNewPlantToFirebase(viewModel.imageUri)}"
+            android:text="@{viewModel.isLoading ? @string/new_plant_add_button_loading : @string/new_plant_add_button  }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:enabled="false" />
+
+        <!--        <ProgressBar-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:indeterminate="true"-->
+        <!--            android:indeterminateTint="@color/textColorLight"-->
+        <!--            android:indeterminateTintMode="src_atop"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@id/add_button"-->
+        <!--            app:layout_constraintEnd_toEndOf="@id/add_button"-->
+        <!--            app:layout_constraintStart_toStartOf="@id/add_button"-->
+        <!--            app:layout_constraintTop_toTopOf="@id/add_button" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

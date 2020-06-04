@@ -13,10 +13,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    //TODO
-    // dark theme
-    // adding image
-    // anims
+    // TODO
+    //dark theme
+    //toolbar text colors
+        
+    //design change on trefle list
+    //image visible in plant info fragment
+    //changing language in settings
+
 
     private lateinit var binding: ActivityMainBinding
 
@@ -25,33 +29,35 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.isToolbarImageVisible = true
         setSupportActionBar(main_toolbar as Toolbar)
-        supportActionBar?.apply {
-            setDisplayShowTitleEnabled(true)
-        }
+        supportActionBar?.setDisplayShowTitleEnabled(true)
     }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.settings_option -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.action_tabsFragment_to_settingsFragment)
-                true
-            }
-            R.id.about_option -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.action_tabsFragment_to_aboutFragment)
-                true
-            }
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else ->
-                super.onOptionsItemSelected(item)
+            R.id.settings_option -> goToSettingsFragment()
+            R.id.about_option -> goToAboutFragment()
+            android.R.id.home -> goBack()
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
+    private fun goToSettingsFragment(): Boolean {
+        Navigation.findNavController(this, R.id.nav_host_fragment)
+            .navigate(R.id.action_tabsFragment_to_settingsFragment)
+        return true
+    }
+
+    private fun goToAboutFragment(): Boolean {
+        Navigation.findNavController(this, R.id.nav_host_fragment)
+            .navigate(R.id.action_tabsFragment_to_aboutFragment)
+        return true
+    }
+
+    private fun goBack(): Boolean {
+        onBackPressed()
+        return true
+    }
 
     override fun onBackPressed() {
         val handled =
@@ -78,5 +84,9 @@ class MainActivity : AppCompatActivity() {
         setUpNavigationVisibility(true)
         setLogoVisibility(false)
         this.title = title ?: ""
+    }
+
+    fun setNightMode(value: Boolean) {
+        binding.isNightMode = value
     }
 }

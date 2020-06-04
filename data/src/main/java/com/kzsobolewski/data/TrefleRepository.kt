@@ -1,31 +1,12 @@
 package com.kzsobolewski.data
 
+import com.kzsobolewski.data.BuildConfig.API_TREFLE_URL
 import com.kzsobolewski.domain.ITrefleRepository
 import com.kzsobolewski.domain.models.TrefleDetailedPlant
 import com.kzsobolewski.domain.models.TreflePlant
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class TrefleRepository : ITrefleRepository {
+class TrefleRepository : ITrefleRepository, Repository(API_TREFLE_URL) {
 
-    private val loggingInterceptor = HttpLoggingInterceptor().apply {
-        if (BuildConfig.BUILD_TYPE == "debug")
-            setLevel(HttpLoggingInterceptor.Level.BODY)
-        else
-            setLevel(HttpLoggingInterceptor.Level.NONE)
-    }
-
-    private val client = OkHttpClient.Builder()
-        .addInterceptor(loggingInterceptor)
-        .build()
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(BuildConfig.API_TREFLE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(client)
-        .build()
 
     private val service: ITrefleApi = retrofit.create(ITrefleApi::class.java)
 

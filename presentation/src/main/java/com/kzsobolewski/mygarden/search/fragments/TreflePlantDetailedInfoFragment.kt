@@ -16,7 +16,7 @@ class TreflePlantDetailedInfoFragment : Fragment(), INavigationFragment {
 
     private val viewModel
             by viewModel<TreflePlantDetailedInfoViewModel>()
-    override val mainActivity: MainActivity
+    override val mainActivityForNavigation: MainActivity
         get() = activity as MainActivity
 
     override fun onCreateView(

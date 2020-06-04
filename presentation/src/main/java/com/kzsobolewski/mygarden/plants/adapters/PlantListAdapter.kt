@@ -3,6 +3,8 @@ package com.kzsobolewski.mygarden.plants.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kzsobolewski.domain.models.Plant
 import com.kzsobolewski.mygarden.R
@@ -11,16 +13,9 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.plant_item.view.*
 
 class PlantListAdapter(
-    private val onItemClick: OnItemClickListener<Plant>,
-    private var cachedPlants: List<Plant> = listOf()
+    private val onItemClick: OnItemClickListener<Plant>
 ) :
-    RecyclerView.Adapter<PlantListAdapter.ViewHolder>() {
-
-
-    internal fun setPlants(plants: List<Plant>?) {
-        cachedPlants = plants ?: listOf()
-        notifyDataSetChanged()
-    }
+    ListAdapter<Plant, PlantListAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -29,22 +24,28 @@ class PlantListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(cachedPlants[position], onItemClick)
+        holder.bind(getItem(position), onItemClick)
         loadImageToView(holder, position)
     }
 
     private fun loadImageToView(holder: ViewHolder, position: Int) {
         Picasso.get().apply {
             isLoggingEnabled = true
-            load(cachedPlants[position].thumbnail)
-                .placeholder(R.drawable.ic_image_black_24dp)
-                .error(R.drawable.ic_error_black_24dp)
+            load(getItem(position).thumbnail)
+                .placeholder(R.drawable.default_plant)
                 .into(holder.itemView.plant_image)
         }
     }
 
+    object DiffCallback : DiffUtil.ItemCallback<Plant>(){
+        override fun areItemsTheSame(oldItem: Plant, newItem: Plant): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-    override fun getItemCount() = cachedPlants.size
+        override fun areContentsTheSame(oldItem: Plant, newItem: Plant): Boolean {
+            return oldItem == newItem
+        }
+    }
 
     inner class ViewHolder(private val binding: PlantItemBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
@@ -59,7 +60,7 @@ class PlantListAdapter(
         }
 
         override fun onClick(p0: View?) {
-            onItemClick.onItemClick(cachedPlants[adapterPosition])
+            onItemClick.onItemClick(getItem(adapterPosition))
         }
     }
 }

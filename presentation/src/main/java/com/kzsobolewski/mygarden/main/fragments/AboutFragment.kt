@@ -10,7 +10,7 @@ import com.kzsobolewski.mygarden.main.activities.MainActivity
 
 class AboutFragment : Fragment(), INavigationFragment {
 
-    override val mainActivity: MainActivity
+    override val mainActivityForNavigation: MainActivity
         get() = activity as MainActivity
 
     override fun onCreateView(

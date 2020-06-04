@@ -11,6 +11,7 @@
     <string name="new_plant_name">Nazwa</string>
     <string name="new_plant_description">Opis</string>
     <string name="new_plant_add_button">DODAJ</string>
+    <string name="new_plant_add_button_loading">ŁADUJĘ...</string>
     <string name="trefle_common_name">Nazwa zwyczajowa:  </string>
     <string name="trefle_scientific_name">Nazwa naukowa:  </string>
     <string name="trefle_genus">Rodzaj:  </string>

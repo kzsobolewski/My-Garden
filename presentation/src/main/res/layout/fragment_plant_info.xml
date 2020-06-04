@@ -47,7 +47,7 @@
             layout="@layout/trefle_details_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:isLayoutVisible="@{viewModel.isFromTrefle()}"
+            app:isLayoutVisible="@{viewModel.currentPlant.trefle_plant != null}"
             app:item="@{viewModel.currentPlant.trefle_plant}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

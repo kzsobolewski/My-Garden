@@ -10,6 +10,7 @@
     <string name="new_plant_name">Name</string>
     <string name="new_plant_description">Description</string>
     <string name="new_plant_add_button">ADD</string>
+    <string name="new_plant_add_button_loading">LOADING...</string>
     <string name="trefle_common_name">Common name:  </string>
     <string name="trefle_scientific_name">Scientific name:  </string>
     <string name="trefle_genus">Genus:  </string>

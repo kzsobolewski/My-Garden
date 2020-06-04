@@ -1,33 +1,21 @@
 package com.kzsobolewski.data
 
+import android.net.Uri
+import android.util.Log
+import com.google.firebase.storage.FirebaseStorage
+import com.kzsobolewski.data.BuildConfig.API_BASE_URL
 import com.kzsobolewski.domain.IDatabaseRepository
 import com.kzsobolewski.domain.models.Plant
 import com.kzsobolewski.domain.models.PlantsResponse
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
-class FirebaseRepository : IDatabaseRepository{
-
-    private val loggingInterceptor = HttpLoggingInterceptor().apply {
-        if (BuildConfig.BUILD_TYPE == "debug")
-            setLevel(HttpLoggingInterceptor.Level.BODY)
-        else
-            setLevel(HttpLoggingInterceptor.Level.NONE)
-    }
-
-    private val client = OkHttpClient.Builder()
-        .addInterceptor(loggingInterceptor)
-        .build()
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(BuildConfig.API_BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(client)
-        .build()
+class FirebaseRepository : IDatabaseRepository, Repository(API_BASE_URL) {
 
     private val service: IFirebaseApi = retrofit.create(IFirebaseApi::class.java)
+    private val firebaseStorage = FirebaseStorage.getInstance()
 
     override suspend fun savePlant(plant: Plant) {
         service.savePlant(plant)
@@ -39,5 +27,28 @@ class FirebaseRepository : IDatabaseRepository{
 
     override suspend fun deletePlant(id: String) {
         service.deletePlant(id)
+    }
+
+    override suspend fun addImage(uri: Uri): String {
+        return suspendCoroutine { continuation ->
+            val filename = UUID.randomUUID().toString()
+            val ref = firebaseStorage.getReference("/img/$filename")
+
+            ref.putFile(uri).addOnSuccessListener {
+                ref.downloadUrl.addOnSuccessListener {
+                    continuation.resume(it.toString())
+                }
+            }.addOnFailureListener {
+                Log.e(FirebaseRepository::class.simpleName, it.localizedMessage, it)
+                continuation.resumeWithException(it)
+            }
+        }
+    }
+
+    override suspend fun deleteImage(url: String) {
+        val ref = firebaseStorage.getReferenceFromUrl(url)
+        ref.delete().addOnFailureListener {
+            Log.e(FirebaseRepository::class.simpleName, it.localizedMessage, it)
+        }
     }
 }

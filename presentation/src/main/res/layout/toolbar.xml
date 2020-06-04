@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="isImageVisible"
+            type="Boolean" />
+
+        <variable
+            name="nightMode"
             type="Boolean" />
 
         <import type="android.view.View" />
@@ -23,14 +28,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/textColorDark">
 
+        <!--            android:src="@{nightMode ? @drawable/mygarden_purple :@drawable/mygarden_logo}"-->
         <ImageView
-            android:id="@+id/app_logo"
+            android:id="@+id/app_logo_toolbar"
             android:layout_width="150dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
+            android:foregroundTint="@color/iconTint"
             android:src="@drawable/mygarden_logo"
-            android:tint="@color/design_default_color_on_secondary"
-            android:visibility="@{isImageVisible ? View.VISIBLE : View.GONE}" />
+            android:tint="@color/iconTint"
+            android:visibility="@{isImageVisible ? View.VISIBLE : View.GONE}"
+            tools:foregroundTint="@color/gray" />
     </androidx.appcompat.widget.Toolbar>
 </layout>
